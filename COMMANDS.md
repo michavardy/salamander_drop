@@ -9,6 +9,7 @@ docker image rm [OPTIONS] IMAGE [IMAGE...]          ## remove image
 docker image rm my-image1 my-image2 my-image3       ## remove multiple images
 docker image rm -f my-image                         ## forced removal
 docker image rm -a                                  ## remove all images
+docker rm `docker ps -aq`                           ## remove exited containers
 
 ```
 _____________
