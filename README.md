@@ -7,6 +7,7 @@ the goal of this project is to provide a git clonable docker compose project tha
 
 ## Commands
 ```
+git clone /path/to/FAST-REACT-MONGO-GENERIC /path/to/new/project/directory
 docker-compose up           ## to start up docker-compose
 docker-compose down         ## to take down docker-compose
 ```
