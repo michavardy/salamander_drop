@@ -1,13 +1,12 @@
-# Generic Fast React Mongo Application Docker-Compose
-![logo](logo.png)
+# Drag and Drop Image Uploader
+![Demo](demo.gif)
 ## Goal
 
-the goal of this project is to provide a git clonable docker compose project that is a single command to download and build the entire full stack FastAPI backend, React Frontend, Mongo Database.
+The goal of this project, is to practice full stack development, the first feature is a drag and drop image uploader
 
 
 ## Commands to setup
 ```
-git clone /path/to/FAST-REACT-MONGO-GENERIC /path/to/new/project/directory
 docker-compose up           ## to start up docker-compose
 docker-compose down         ## to take down docker-compose
 ```
@@ -19,8 +18,5 @@ Dev Containers: Attach to running container
 Select: container name
 frontend
 ```
-# Save container to image
-```
-docker commit 
-```
+
 
