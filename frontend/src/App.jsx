@@ -1,9 +1,9 @@
 import React from 'react'
-import ImageDrop from './ImageDrop';
+import LandingPage from './LandingPage';
 
 const App = () => {
   return (
-    <ImageDrop/>
+    <LandingPage/>
   )
 }
 
