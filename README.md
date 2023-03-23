@@ -1,6 +1,6 @@
 # Drag and Drop Image Uploader
-![Demo](demo.gif)
 
+a
 ## TODO
 add paging to list of pictures
 take out input element
