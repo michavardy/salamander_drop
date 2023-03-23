@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'D-DIN';
+    src: url('%PUBLIC_URL%/D-DIN.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
