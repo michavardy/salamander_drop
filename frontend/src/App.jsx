@@ -1,4 +1,9 @@
 import React, {useState} from 'react'
+import Landing from './Landing'
+import Images from './Images'
+import SelectImage from './SelectImage'
+import Logo from './images/SalamanderImage'
+import './global.css';
 
 
 const App = () => {
@@ -7,15 +12,14 @@ const App = () => {
 
   return (
     <div className="appContainer">
-      {
-      images ? (
-        <h1>Images</h1>
-      )
-      : selectImage ? (
-        <h1>selectImage</h1>
-      )
-      : (<h1>landing</h1>)
-    }
+      <div className="logo"><Logo/></div>
+      <div className="appBody">
+        {
+          images ? (<Images/>)
+          : selectImage ? (<SelectImage/>)
+          : (<Landing/>)
+        }
+        </div>
     </div>
   )
 }

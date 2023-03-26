@@ -1,35 +1,107 @@
 @font-face {
     font-family: 'D-DIN';
-    src: url('%PUBLIC_URL%/D-DIN.otf') format('opentype');
+    src: url('../public/din_fonts/D-DIN.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
   }
 
+  /* ##################   Variables ########################### */
+:root {
+  --background-color: #1e1e1e; /* Light theme background color */
+  --primary-color: #252526; /* Light theme primary color */
+  --secondary-color: #191f24; /* Light theme secondary color */
+  --border-color: #333333; /* Light theme border color */
+  --text-color: #f2f2f2; /* Light theme text color */
+  --selection-color: #f2f2f2; /* Light theme selection color */
+  --accept-color: #37c837; /* Light theme accept color */
+  --reject-color: #c83737; /* Light theme reject color */
+  --salamander-black: #000000; 
+  --salamander-yellow:#fcf84a;
+}
+
+/*
+@media  (){
   :root {
-    --background-color: #1e1e1e; /* Light theme background color */
-    --primary-color: #252526; /* Light theme primary color */
-    --secondary-color: #191f24; /* Light theme secondary color */
-    --border-color: #333333; /* Light theme border color */
-    --text-color: #f2f2f2; /* Light theme text color */
-    --selection-color: #f2f2f2; /* Light theme selection color */
-    --accept-color: #37c837; /* Light theme accept color */
-    --reject-color: #c83737; /* Light theme reject color */
+    --background-color: #f9f9f9;  
+    --primary-color: #e6e6e6; 
+    --secondary-color: #dbdbe3; 
+    --border-color: #cccccc; 
+    --text-color: #696969; 
+    --selection-color: #696969; 
+    --accept-color: #008000; 
+    --reject-color: #550000; 
+    --salamander-black: #000000; 
+    --salamander-yellow:#fcf84a;
   }
-  
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background-color: #f9f9f9; /* Dark theme background color */
-      --primary-color: #e6e6e6; /* Dark theme primary color */
-      --secondary-color: #dbdbe3; /* Dark theme secondary color */
-      --border-color: #cccccc; /* Dark theme border color */
-      --text-color: #696969; /* Dark theme text color */
-      --selection-color: #696969; /* Dark theme selection color */
-      --accept-color: #008000; /* Dark theme accept color */
-      --reject-color: #550000; /* Dark theme reject color */
-    }
+}
+*/
+
+
+
+
+
+
+  /* ################## global style ######################## */
+  .logo{
+    padding:0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
   }
-  
-  body {
-    background-color: var(--background-color);
-    color: var(--text-color);
+  .appContainer{
+    padding:0px;
+    background-color:var( --background-color);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .appBody{
+    padding:0px;
+    background-color:var(--primary-color);
+    width: 90%;
+    height:90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  /* ################## Landing ########################### */
+  .landingContainer{
+    padding: 0px;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+
+    
+
+  }
+  .landingTitle{
+    padding:30px;
+    color:var(--text-color);
+    font-size: 25px;
+    font-family:D-DIN;
+  }
+  .uploadTargetArea{
+    padding:0px;
+    height:50vh;
+    width:50vh;
+    border: 2px dashed var(--selection-color);
+    border-radius:20px;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .uploadImage{
+    padding:0px;
+  }
+  .instructionText{
+    padding:10px;
+    color:var(--text-color);
+    font-family:D-DIN;
   }
