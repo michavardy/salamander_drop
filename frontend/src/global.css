@@ -4,3 +4,32 @@
     font-weight: normal;
     font-style: normal;
   }
+
+  :root {
+    --background-color: #1e1e1e; /* Light theme background color */
+    --primary-color: #252526; /* Light theme primary color */
+    --secondary-color: #191f24; /* Light theme secondary color */
+    --border-color: #333333; /* Light theme border color */
+    --text-color: #f2f2f2; /* Light theme text color */
+    --selection-color: #f2f2f2; /* Light theme selection color */
+    --accept-color: #37c837; /* Light theme accept color */
+    --reject-color: #c83737; /* Light theme reject color */
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #f9f9f9; /* Dark theme background color */
+      --primary-color: #e6e6e6; /* Dark theme primary color */
+      --secondary-color: #dbdbe3; /* Dark theme secondary color */
+      --border-color: #cccccc; /* Dark theme border color */
+      --text-color: #696969; /* Dark theme text color */
+      --selection-color: #696969; /* Dark theme selection color */
+      --accept-color: #008000; /* Dark theme accept color */
+      --reject-color: #550000; /* Dark theme reject color */
+    }
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
