@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Landing from './Landing'
 import Images from './Images'
 import SelectImage from './SelectImage'
@@ -7,17 +7,16 @@ import './global.css';
 
 
 const App = () => {
-  const [images, setImages] = useState(null)
+  const [files, setFiles] = useState(null)
   const [selectImage, setSelectImage] = useState(null)
-
   return (
     <div className="appContainer">
       <div className="logo"><Logo/></div>
       <div className="appBody">
         {
-          images ? (<Images/>)
-          : selectImage ? (<SelectImage/>)
-          : (<Landing/>)
+          files && (selectImage == null) ? (<Images files={files} setSelectImage={setSelectImage} setFiles={setFiles} selectImage={selectImage}/>)
+          : (files && selectImage) !== null ? (<SelectImage/>)
+          : (<Landing setFiles={setFiles}/>)
         }
         </div>
     </div>
