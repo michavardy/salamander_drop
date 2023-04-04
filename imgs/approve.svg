@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="30mm"
+   height="30mm"
+   viewBox="0 0 30 30"
+   version="1.1"
+   id="svg7942"
+   sodipodi:docname="approve.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7944"
+     pagecolor="#000000"
+     bordercolor="#ffffff"
+     borderopacity="0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#363636"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="73.539102"
+     inkscape:cy="96.520072"
+     inkscape:window-width="958"
+     inkscape:window-height="1008"
+     inkscape:window-x="953"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid8063"
+       originx="0"
+       originy="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs7939" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g9906"
+       transform="translate(-2.6458334)">
+      <path
+         style="opacity:0.354571;fill:#ececec;fill-opacity:1;stroke-width:0.0305439"
+         d="m 8.5224204,23.930171 -3.6130082,-3.613009 2.1982916,-2.198292 2.1982917,-2.198292 3.6130085,3.61301 3.613009,3.613009 -2.198292,2.198292 -2.198291,2.198292 z"
+         id="path9864" />
+      <path
+         style="opacity:0.354571;fill:#ececec;fill-opacity:1;stroke-width:0.0499999"
+         d="M 22.038836,17.648664 31.720674,7.9668255 29.522383,5.7685339 27.324091,3.5702421 17.642253,13.252081 7.9604144,22.93392 l 2.1982916,2.198291 2.198291,2.198292 z"
+         id="path9864-5" />
+    </g>
+  </g>
+</svg>

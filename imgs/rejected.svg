@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="30mm"
+   height="30mm"
+   viewBox="0 0 30 30"
+   version="1.1"
+   id="svg7942"
+   sodipodi:docname="rejected.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7944"
+     pagecolor="#000000"
+     bordercolor="#ffffff"
+     borderopacity="0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#363636"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="60.999998"
+     inkscape:cy="148.74999"
+     inkscape:window-width="958"
+     inkscape:window-height="1008"
+     inkscape:window-x="953"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid8063"
+       originx="0"
+       originy="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs7939" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g9892"
+       transform="translate(4.2333333,-1.0583333)">
+      <path
+         style="opacity:0.354571;fill:#ececec;fill-opacity:1;stroke-width:0.0499999"
+         d="M 9.2449369,17.841781 -0.43690091,8.159943 1.7613906,5.9616515 3.9596824,3.7633597 13.64152,13.445198 l 9.681839,9.681839 -2.198292,2.198291 -2.198291,2.198292 z"
+         id="path9864" />
+      <path
+         style="opacity:0.354571;fill:#ececec;fill-opacity:1;stroke-width:0.0499999"
+         d="M 13.641521,17.841781 23.323359,8.159943 21.125068,5.9616514 18.926776,3.7633596 9.244938,13.445198 -0.43690091,23.127037 1.7613911,25.325328 3.959682,27.52362 Z"
+         id="path9864-5" />
+    </g>
+  </g>
+</svg>

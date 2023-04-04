@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import Landing from './Landing'
 import Images from './Images'
-import SelectImage from './SelectImage'
+import SelectImageEdit from './SelectImage'
 import Logo from './images/SalamanderImage'
+
 import './global.css';
+
+
 
 
 const App = () => {
@@ -15,7 +18,7 @@ const App = () => {
       <div className="appBody">
         {
           files && (selectImage == null) ? (<Images files={files} setSelectImage={setSelectImage} setFiles={setFiles} selectImage={selectImage}/>)
-          : (files && selectImage) !== null ? (<SelectImage/>)
+          : (files && selectImage) !== null ? (<SelectImageEdit setSelectImage={setSelectImage} selectImage={selectImage}/>)
           : (<Landing setFiles={setFiles}/>)
         }
         </div>

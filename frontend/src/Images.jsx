@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from 'react'
+import LazyLoad from 'react-lazy-load';
+import CircularProgress, { CircularProgressProps} from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import './global.css';
 
 const Thumbnail = (props) => {
     return(
         <div className='thumbnailContainer'>
-            <img className='image' src={props.img.image} alt="thumbnail" onClick={()=>{props.setSelectImage(props.img)}} style={{width: "100px", height: "100px"}}/>
+            <LazyLoad height={100}>
+                <img className='image' src={props.img.image} alt="thumbnail" onClick={()=>{props.setSelectImage(props.img)}} style={{width: "100px", height: "100px"}}/>
+            </LazyLoad>
             <div className="imgData">
                 <div className="imgName">{props.img.name}</div>
                 <div className="imgSize">{Math.round(props.img.size / 100000)} Mb</div>
@@ -13,8 +19,36 @@ const Thumbnail = (props) => {
         </div>
     )
 }
+
+function CircularProgressWithLabel(props) {
+    return (
+      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+        <CircularProgress variant="determinate" {...props} />
+        <Box
+          sx={{
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            position: 'absolute',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography
+            variant="caption"
+            component="div"
+            color="text.secondary"
+          >{`${Math.round(props.value)}%`}</Typography>
+        </Box>
+      </Box>
+    );
+  }
+
 const Images = (props) => {
     const [imageData, setImageData] = useState(null)
+    const [progress, setProgress] = useState(0)
 
     function loadImages(file, index){
         return new Promise((resolve, reject)=>{
@@ -43,13 +77,12 @@ const Images = (props) => {
         })}
     
         useEffect(()=>{extractImages()},[props])
-        //useEffect(()=>{console.log(imageData)},[imageData])
+        useEffect(()=>{console.log(imageData)},[imageData])
     
         return ( 
         <div className="imagesContainer">
             <div className="imagesRender">
             {
-            //imageData ? imageData.map((img, index)=> <Thumbnail img={img} key={index}/>)
             imageData ? (
                 imageData
                     .reduce((rows, img, index)=>{
@@ -71,15 +104,17 @@ const Images = (props) => {
                         </div>
                     ))
             )
-
-            : <h1> image data not loaded</h1>
+            : 
+            <div>
+                <CircularProgressWithLabel value={progress} />
+                <h1>images loading</h1>
+            </div>
             }
             </div>
             <div className="imagesCtrlButtons">
                 <button className='imageButton' onClick={()=>{props.setFiles(null)}}>cancle</button>
                 <button className='imageButton' onClick={()=>{console.log(props)}}>debug</button>
                 <button className='imageButton'>submit</button>
-
             </div>
         </div>
      );
