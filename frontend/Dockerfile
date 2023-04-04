@@ -13,16 +13,16 @@ COPY .babelrc ./
 COPY webpack.config.js ./
 
 # Copy Public
-COPY ./public/* ./public
+COPY ./public/* ./public/
 
 # Copy src
-COPY ./src/* ./src
+COPY ./src/* ./src/
 
 # Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
+COPY ./package*.json ./
 
 # Copy node modules
-COPY ./node_modules* ./
+#COPY ./node_modules* ./
 # Install the dependencies in the container
 RUN npm install
 
