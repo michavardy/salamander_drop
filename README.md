@@ -26,4 +26,7 @@ Select: container name
 frontend
 ```
 
-
+# Commands for logs
+```
+docker logs <container-id>
+```
