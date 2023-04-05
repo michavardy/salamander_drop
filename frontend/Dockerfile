@@ -5,6 +5,8 @@ FROM node:14 AS build
 RUN mkdir ./public
 RUN mkdir ./src
 RUN mkdir ./node_modules
+RUN mkdir ./src/images
+RUN mkdir ./public/din_fonts
 
 # Copy babelrc
 COPY .babelrc ./
@@ -13,16 +15,23 @@ COPY .babelrc ./
 COPY webpack.config.js ./
 
 # Copy Public
-COPY ./public/* ./public
+COPY ./public/* ./public/
 
 # Copy src
-COPY ./src/* ./src
+COPY ./src/* ./src/
+
+# copy images
+COPY ./src/images/* ./src/images
+
+# copy fonts
+COPY ./public/din_fonts/* ./public/din_fonts
 
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
 # Copy node modules
-COPY ./node_modules* ./
+# COPY ./node_modules* ./
+
 # Install the dependencies in the container
 RUN npm install
 

@@ -20,7 +20,11 @@ const Modal = (props) => {
                     props.selectImageBodyRef.current.style.display='flex';
                     }}>x</button>
                 <h1> Edit Data</h1>
-                <input type="text" value={props.GPS.Latitude} onChange={handleChange}></input>
+                <div className="modalForm">
+                    <label for="imageName">Image Name: </label>
+                    <input type="text" id="imageName" value={props.} onChange={handleChange}></input>
+                </div>
+
             </div>
     );
   };  
