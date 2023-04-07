@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, useContext} from 'react'
 import SvgGenerator from './SvgGenerator'
 import EXIF from 'exif-js';
 import GoogleMapReact from 'google-map-react';
@@ -6,23 +6,31 @@ import GoogleMapReact from 'google-map-react';
 
 
 const Modal = (props) => {
-    console.log("modal props")
-    console.log(props)
+    const {stateContext, setStateContext} = useContext(props.context)
     
-    function handleChange(event){
-        console.log('modal text box')
-        console.log(event)
-    }
     return (
             <div className="modalContent">
                 <button className="close" onClick={()=>{
                     props.modalRef.current.style.display = 'None';
                     props.selectImageBodyRef.current.style.display='flex';
                     }}>x</button>
-                <h1> Edit Data</h1>
+                <h1 className="formTitle"> Edit Image Data</h1>
                 <div className="modalForm">
-                    <label for="imageName">Image Name: </label>
-                    <input type="text" id="imageName" value={props.} onChange={handleChange}></input>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="imageName">Image Name: </label>
+                    <input className="formInput" type="text" id="imageName" value={stateContext.selectImage.name} onChange={(event)=>{setStateContext({...stateContext, selectImage:{...stateContext.selectImage, name: event.target.value}})}}></input>
+                    </div>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="imageDateTime">Image Date Time: </label>
+                    <input className="formInput" type="text" id="imageDateTime" value={stateContext.dateTime} onChange={(event)=>{setStateContext({...stateContext, dateTime:event.target.value})}}></input>
+                    </div>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="imageContributer">Image Contributer: </label>
+                    <input className="formInput" type="text" id="imageContributer" value={stateContext.contributer} onChange={(event)=>{setStateContext({...stateContext, contributer:event.target.value})}}></input>
+                    </div>
+                </div>
+                <div className="formSubmit">
+                    <button className="formSubmit" onClick={()=>{}}>Submit</button>
                 </div>
 
             </div>
@@ -32,48 +40,47 @@ const Modal = (props) => {
 
 
 const ToolBar = (props) => {
-    const [rotation, setRotation] = useState(0);
-    const [scale, setScale] = useState(1);
-    const [imageRef, setImageRef] = useState(null)
+    const {stateContext, setStateContext} = useContext(props.context)
 
     useEffect(()=>{
         if (props){
-            setImageRef(props.imageRef)
+            setStateContext({...stateContext, imageRef:props.imageRef})
         }
     },[props])
     useEffect(() => {
-        console.log(rotation);
-      }, [rotation]);
+        console.log(stateContext.rotation);
+      }, [stateContext.rotation]);
     useEffect(() => {
-        console.log(scale);
-      }, [scale]);
+        console.log(stateContext.scale);
+      }, [stateContext.scale]);
       useEffect(() => {
-        console.log(props.showModal);
-      }, [props.showModal]);
+        console.log(stateContext.showModal);
+      }, [stateContext.showModal]);
     return(
         <div className="toolBarContainer">
-        {imageRef ? 
-
+        {stateContext.imageRef ? 
             (
             <div>
             <SvgGenerator path={"Rotate"} scale={10} fill={'#f2f2f2'} callBack={()=>{ 
-                setRotation(rot => rot + 90);
-                imageRef.current.style.transform = `rotate(${rotation}deg)`;}}/>
+                setStateContext({...stateContext, rotation:rot => rot + 90})
+                stateContext.imageRef.current.style.transform = `rotate(${stateContext.rotation}deg)`;}}/>
             <SvgGenerator path={"Light"} scale={10} fill={'#f2f2f2'} callBack={()=>{}}/>
             <SvgGenerator path={"Resize"} scale={10} fill={'#f2f2f2'} callBack={()=>{
-                setScale(scl => scl + 0.1);
-                imageRef.current.style.transform = `scale(${scale})`
+                setStateContext({...stateContext, scale:scl => scl + 0.1})
+                stateContext.imageRef.current.style.transform = `scale(${stateContext.scale})`
             }}/>
             <SvgGenerator path={"Comment"} scale={10} fill={'#f2f2f2'} callBack={()=>{}}/>
-            <SvgGenerator path={"Rejected"} scale={10} fill={'#f2f2f2'} callBack={()=>{}}/>
-            <SvgGenerator path={"Approve"} scale={10} fill={'#f2f2f2'} callBack={()=>{}}/>
+            <SvgGenerator path={"Rejected"} scale={10} fill={'#f2f2f2'} callBack={()=>{
+                setStateContext({...stateContext, approved:false}
+            }}/>
+            <SvgGenerator path={"Approve"} scale={10} fill={'#f2f2f2'} callBack={()=>{
+                setStateContext({...stateContext, approved:true}
+            }}/>
             <SvgGenerator path={"Edit"} scale={10} fill={'#f2f2f2'} callBack={()=>{
-                props.setShowModal(prevState => !prevState);
+                setStateContext({...stateContext, showModal:prevState => !prevState});
                 props.modalRef.current.style.display = 'flex';
                 props.selectImageBodyRef.current.style.display='none';
-
             }}/>
-            <SvgGenerator path={"Approve"} scale={10} fill={'#f2f2f2'} callBack={()=>{}}/>
             </div>)
             :
             <div></div>
@@ -84,42 +91,39 @@ const ToolBar = (props) => {
 }
 
 const RenderDateTimeComponent = (props) => {
-    const [geo, setGeo] = useState(null);
-    const [city, setCity] = useState(null);
-    const [district, setDistrict] = useState(null);
-    const [country, setCountry] = useState(null);
+    const {stateContext, setStateContext} = useContext(props.context)
     useEffect(() => {
         async function fetchGeo() {
           try {
-            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${props.GPS.Latitude},${props.GPS.Longitude}&key=AIzaSyDAl5UCGrZAxSUDeWqIkIH5oqsDF-CRKWs`;
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${stateContext.GPS.Latitude},${stateContext.GPS.Longitude}&key=AIzaSyDAl5UCGrZAxSUDeWqIkIH5oqsDF-CRKWs`;
             const response = await fetch(url);
             const json = await response.json();
-            console.log(json)
-            setGeo(json)
+            setStateContext({...stateContext, geo:json})
           } catch (error) {
             console.log(error);
           }
         }
-        if (props.GPS && props.GPS.Latitude && props.GPS.Longitude){
+        if (stateContext.GPS && stateContext.GPS.Latitude && stateContext.GPS.Longitude){
             fetchGeo();}}, [props])
     useEffect(()=>{
-        if (geo){
-            console.log(geo)
-            const cty = geo.results[0].address_components[1].short_name
-            setCity(cty);
-            const dstrct = geo.results[0].address_components[3].short_name
-            setDistrict(dstrct);
-            const ctry = geo.results[geo.results.length - 1].formatted_address
-            setCountry(ctry)
+        if (stateContext.geo){
+            const cty = stateContext.geo.results[0].address_components[1].short_name
+            const dstrct = stateContext.geo.results[0].address_components[3].short_name
+            const ctry = stateContext.geo.results[stateContext.geo.results.length - 1].formatted_address
+            setStateContext({...stateContext, 
+                city:cty,
+                district:dstrct,
+                country:ctry
+                })
         }
-    },[geo])
+    },[stateContext.geo])
 
     return(
         <div className="DateTimeContainer">
-            <div style={{fontSize:"50px",color:"var(--text-color)"}}>{city}</div>
-            <div style={{fontSize:"20px",color:"var(--text-color)"}}>{`${district} - ${country}`}</div>
-            <div style={{fontSize:"70px",color:"var(--text-color)"}}>{props.DateTime.split(" ")[1]}</div>
-            <div style={{fontSize:"30px",color:"var(--text-color)"}}>{props.DateTime.split(" ")[0]}</div>  
+            <div style={{fontSize:"50px",color:"var(--text-color)"}}>{stateContext.city}</div>
+            <div style={{fontSize:"20px",color:"var(--text-color)"}}>{`${stateContext.district} - ${stateContext.country}`}</div>
+            <div style={{fontSize:"70px",color:"var(--text-color)"}}>{stateContext.DateTime.split(" ")[1]}</div>
+            <div style={{fontSize:"30px",color:"var(--text-color)"}}>{stateContext.DateTime.split(" ")[0]}</div>  
         </div>
     )
 }
@@ -127,7 +131,7 @@ const RenderDateTimeComponent = (props) => {
 const RenderMapComponent = (props) => {
     return(
         <div className="MapContainer">
-             <Map />
+             <Map context={context}/>
         </div>
     )
 }
@@ -135,12 +139,13 @@ const RenderMapComponent = (props) => {
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function Map(props) {
+    const {stateContext, setStateContext} = useContext(props.context)
     const [latitude, setLatitude] = useState(null)
     const [longitude, setLongitude] = useState(null)
     useEffect(()=>{
-        if (props.GPS){
-            setLatitude(props.GPS.Latitude)
-            setLongitude(props.GPS.Longitude)
+        if (stateContext.GPS){
+            setLatitude(stateContext.GPS.Latitude)
+            setLongitude(stateContext.GPS.Longitude)
         }
 
     }, [props])
@@ -177,7 +182,7 @@ const extractMetadataFromBase64Image = (base64Image) => {
       }
       const exifData = EXIF.readFromBinaryFile(buffer); // read EXIF data from buffer
       return exifData;
-  }
+}
 
 const extractDateTimeFromMetaData = (md) => {
     if (md && md.DateTime) {
@@ -193,7 +198,7 @@ const dmsToDecimal = (degrees, minutes, seconds, direction) => {
       decimal = -decimal;
     }
     return decimal;
-  }
+}
 
 const extractGPSFromMetaData = (md) => {
     if (md && md.GPSLatitude && md.GPSLongitude) {
@@ -209,32 +214,29 @@ const extractGPSFromMetaData = (md) => {
 
 
 const SelectImage = (props) => {
+    const {stateContext, setStateContext} = useContext(props.context)
     const imageRef = useRef(null);
     const modalRef = useRef(null);
     const selectImageBodyRef = useRef(null)
-    const [metaData, setMetaData] = useState(null)
-    const [DateTime, setDateTime] = useState(null)
-    const [GPSDMS, setGPSDMS] = useState(null)
-    const [GPS, setGPS] = useState(null)
-    const [showModal, setShowModal] = useState(false)
 
     useEffect(()=>{
-        const md = extractMetadataFromBase64Image(props.selectImage.image);
-        setMetaData(md);
+        const md = extractMetadataFromBase64Image(stateContext.selectImage.image);
+        setStateContext({...stateContext, metaData: md})
     },[props])
     useEffect(()=>{
-        const dt = extractDateTimeFromMetaData(metaData)
-        setDateTime(dt);
-    },[metaData])
+        const dt = extractDateTimeFromMetaData(stateContext.metaData)
+        setStateContext({...stateContext, dateTime: dt})
+    },[stateContext.metaData])
     useEffect(()=>{
-        const gps = extractGPSFromMetaData(metaData)
-        setGPSDMS(gps);
-    },[metaData])
+        const gps = extractGPSFromMetaData(stateContext.metaData)
+        setStateContext({...stateContext, GPSDMS: gps})
+
+    },[stateContext.metaData])
     useEffect(()=>{
-        if (GPSDMS){
+        if (stateContext.GPSDMS){
             const gps = {}
-            console.log(GPSDMS)
-            for (const [key,val] of Object.entries(GPSDMS)){
+
+            for (const [key,val] of Object.entries(stateContext.GPSDMS)){
                 const degrees = val[0];
                 const minutes = val[1];
                 const seconds = val[2];
@@ -242,22 +244,20 @@ const SelectImage = (props) => {
                 const decimal = dmsToDecimal(degrees, minutes, seconds, direction);
                 gps[key] = decimal
             }
-            setGPS(gps)
+            setStateContext({...stateContext, GPS: gps})
         }
         else{
-            setGPS(null) 
+            setStateContext({...stateContext, GPS: null})
         }
 
-    },[GPSDMS])
+    },[stateContext.GPSDMS])
 
-
-    
     return ( 
         <div className='selectImageContainer'>
             <div className="ModalContainer" ref={modalRef}>
             {
-                showModal ? 
-                <Modal imgData={props.selectImage} DateTime={DateTime} GPS={GPS} modalRef={modalRef} selectImageBodyRef={selectImageBodyRef}/>
+                stateContext.showModal ? 
+                <Modal  modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} context={context}/>
                 : <div></div>
             }
 
@@ -265,24 +265,23 @@ const SelectImage = (props) => {
             <div className="selectImageBody" ref={selectImageBodyRef}>
             <div className='metaDataContainer'>
                 <div className="map">
-                {GPS ? <div>
-                    <RenderMapComponent/>
+                {stateContext.GPS ? <div>
+                    <RenderMapComponent context={context}/>
                     </div> : <h1> No GPS data in Image</h1> }
                 </div>
                 <div className="dateTimePlace">
-                    {DateTime ? <RenderDateTimeComponent DateTime={DateTime} GPS={GPS}/> : <h1> No Date Time data in Image</h1> }
+                    {stateContex.dateTime ? <RenderDateTimeComponent context={context}/> : <h1> No Date Time data in Image</h1> }
                 </div>
             </div>
             <div className='selectImage'>
-            <img className='image' src={props.selectImage.image} alt={props.selectImage.name}  style={{width: "500px", height: "500px"}} ref={imageRef}/>
+            <img className='image' src={stateContext.selectImage.image} alt={stateContext.selectImage.name}  style={{width: "500px", height: "500px"}} ref={imageRef}/>
             </div>
             <div className="editControls">
-                <ToolBar imageRef={imageRef} showModal={showModal} setShowModal={setShowModal} modalRef={modalRef} selectImageBodyRef={selectImageBodyRef}/>
+                <ToolBar imageRef={imageRef}  modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} context={context}/>
             </div>
             </div>
             <div className="imagesCtrlButtons">
-                <button className='imageButton' onClick={()=>{props.setSelectImage(null)}}>cancle</button>
-                <button className='imageButton' onClick={()=>{console.log(props)}}>debug</button>
+                <button className='imageButton' onClick={()=>{setStateContext({...stateContext, selectImage:null})}}>cancle</button>
                 <button className='imageButton'>save</button>
             </div>
         </div>

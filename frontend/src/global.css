@@ -259,6 +259,42 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+.formTitle{
+  padding:10px;
+  display:flex;
+  justify-content:center;
+}
+.formSubmit{
+  padding:10px;
+  display:flex;
+  justify-content:center;
+}
+.modalForm{
+  display:flex;
+  flex-direction:column;
+}
+.formLine{
+  padding:10px;
+  display:flex;
+  flex-direction:row;
+
+}
+
+.formLabel{
+  font-weight: bold;
+  font-family:D-DIN;
+  font-size:20px;
+  width:30%;
+}
+.formInput{
+  padding:1px;
+  text-align:center;
+  width:50%;
+  font-family:D-DIN;
+  font-size:18px;
+  
+}
+
 /* Modal content */
 .modalContent {
   background-color: #fefefe;

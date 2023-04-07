@@ -60,7 +60,8 @@ const Images = (props) => {
                     "name":file.name,
                     "size":file.size,
                     "type":file.type,
-                    "image":dataURL 
+                    "image":dataURL,
+                    "contributer":"NA" 
                 };
                 resolve(imageObj);
         };
