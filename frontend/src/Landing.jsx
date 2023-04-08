@@ -1,14 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import './global.css';
 import Upload from './images/UploadImage'
 
 
 const Landing = (props) => {
     const [isDragging, setIsDragging] = useState(false)
+    const {stateContext, setStateContext} = useContext(props.context)
+
 
 
     function handleFileChange(event){
-        props.setFiles(Array.from(event.target.files))
+        setStateContext({...stateContext, files: Array.from(event.target.files)})
     }
     function handleDragOver(event){
         event.preventDefault();
@@ -26,7 +28,7 @@ const Landing = (props) => {
     function handleDrop(event){
         event.preventDefault();
         setIsDragging(false);
-        props.setFiles(Array.from(event.dataTransfer.files))
+        setStateContext({...stateContext, files: Array.from(event.dataTransfer.files)})
     }
     return (
         <div className="landingContainer">

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useContext} from 'react'
+import React, {useState, useEffect, useRef, useContext, useCallback} from 'react'
 import SvgGenerator from './SvgGenerator'
 import EXIF from 'exif-js';
 import GoogleMapReact from 'google-map-react';
@@ -42,20 +42,20 @@ const Modal = (props) => {
 const ToolBar = (props) => {
     const {stateContext, setStateContext} = useContext(props.context)
 
-    useEffect(()=>{
-        if (props){
-            setStateContext({...stateContext, imageRef:props.imageRef})
-        }
-    },[props])
-    useEffect(() => {
-        console.log(stateContext.rotation);
-      }, [stateContext.rotation]);
-    useEffect(() => {
-        console.log(stateContext.scale);
-      }, [stateContext.scale]);
-      useEffect(() => {
-        console.log(stateContext.showModal);
-      }, [stateContext.showModal]);
+    //useEffect(()=>{
+    //    if (props){
+    //        setStateContext({...stateContext, imageRef:props.imageRef})
+    //    }
+    //},[props])
+    //useEffect(() => {
+    //    console.log(stateContext.rotation);
+    //  }, [stateContext.rotation]);
+    //useEffect(() => {
+    //    console.log(stateContext.scale);
+    //  }, [stateContext.scale]);
+    //  useEffect(() => {
+    //    console.log(stateContext.showModal);
+    //  }, [stateContext.showModal]);
     return(
         <div className="toolBarContainer">
         {stateContext.imageRef ? 
@@ -71,10 +71,10 @@ const ToolBar = (props) => {
             }}/>
             <SvgGenerator path={"Comment"} scale={10} fill={'#f2f2f2'} callBack={()=>{}}/>
             <SvgGenerator path={"Rejected"} scale={10} fill={'#f2f2f2'} callBack={()=>{
-                setStateContext({...stateContext, approved:false}
+                setStateContext({...stateContext, approved:false})
             }}/>
             <SvgGenerator path={"Approve"} scale={10} fill={'#f2f2f2'} callBack={()=>{
-                setStateContext({...stateContext, approved:true}
+                setStateContext({...stateContext, approved:true})
             }}/>
             <SvgGenerator path={"Edit"} scale={10} fill={'#f2f2f2'} callBack={()=>{
                 setStateContext({...stateContext, showModal:prevState => !prevState});
@@ -122,8 +122,8 @@ const RenderDateTimeComponent = (props) => {
         <div className="DateTimeContainer">
             <div style={{fontSize:"50px",color:"var(--text-color)"}}>{stateContext.city}</div>
             <div style={{fontSize:"20px",color:"var(--text-color)"}}>{`${stateContext.district} - ${stateContext.country}`}</div>
-            <div style={{fontSize:"70px",color:"var(--text-color)"}}>{stateContext.DateTime.split(" ")[1]}</div>
-            <div style={{fontSize:"30px",color:"var(--text-color)"}}>{stateContext.DateTime.split(" ")[0]}</div>  
+            <div style={{fontSize:"70px",color:"var(--text-color)"}}>{stateContext.dateTime.split(" ")[1]}</div>
+            <div style={{fontSize:"30px",color:"var(--text-color)"}}>{stateContext.dateTime.split(" ")[0]}</div>  
         </div>
     )
 }
@@ -131,7 +131,7 @@ const RenderDateTimeComponent = (props) => {
 const RenderMapComponent = (props) => {
     return(
         <div className="MapContainer">
-             <Map context={context}/>
+             <Map context={props.context}/>
         </div>
     )
 }
@@ -215,27 +215,41 @@ const extractGPSFromMetaData = (md) => {
 
 const SelectImage = (props) => {
     const {stateContext, setStateContext} = useContext(props.context)
+    const [dateTimeUpdated, setDateTimeUpdated] = useState(true)
     const imageRef = useRef(null);
     const modalRef = useRef(null);
     const selectImageBodyRef = useRef(null)
+    console.log("stateContext")
+    console.log(stateContext)
 
+  
     useEffect(()=>{
-        const md = extractMetadataFromBase64Image(stateContext.selectImage.image);
-        setStateContext({...stateContext, metaData: md})
-    },[props])
+        if (stateContext.metaData){}
+        else{
+            const md = extractMetadataFromBase64Image(stateContext.selectImage.image);
+            setStateContext({...stateContext, metaData: md})}
+        
+    },[])
+    
     useEffect(()=>{
+        if (stateContext.dateTime){}
+        else{
         const dt = extractDateTimeFromMetaData(stateContext.metaData)
-        setStateContext({...stateContext, dateTime: dt})
-    },[stateContext.metaData])
+        setStateContext({...stateContext, dateTime: dt})}    
+    },[])
+
     useEffect(()=>{
+        if (stateContext.GPSDMS){}
+        else{
         const gps = extractGPSFromMetaData(stateContext.metaData)
-        setStateContext({...stateContext, GPSDMS: gps})
-
-    },[stateContext.metaData])
+        setStateContext({...stateContext, GPSDMS: gps})}
+        
+    },[])
     useEffect(()=>{
-        if (stateContext.GPSDMS){
+        if (stateContext.GPS){}
+        else if (stateContext.GPSDMS && !stateContext.GPS){
             const gps = {}
-
+        
             for (const [key,val] of Object.entries(stateContext.GPSDMS)){
                 const degrees = val[0];
                 const minutes = val[1];
@@ -247,17 +261,16 @@ const SelectImage = (props) => {
             setStateContext({...stateContext, GPS: gps})
         }
         else{
-            setStateContext({...stateContext, GPS: null})
         }
-
-    },[stateContext.GPSDMS])
+    
+    },[])
 
     return ( 
         <div className='selectImageContainer'>
             <div className="ModalContainer" ref={modalRef}>
             {
                 stateContext.showModal ? 
-                <Modal  modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} context={context}/>
+                <Modal  modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} context={props.context}/>
                 : <div></div>
             }
 
@@ -266,18 +279,18 @@ const SelectImage = (props) => {
             <div className='metaDataContainer'>
                 <div className="map">
                 {stateContext.GPS ? <div>
-                    <RenderMapComponent context={context}/>
+                    <RenderMapComponent context={props.GPSLatitudecontext}/>
                     </div> : <h1> No GPS data in Image</h1> }
                 </div>
                 <div className="dateTimePlace">
-                    {stateContex.dateTime ? <RenderDateTimeComponent context={context}/> : <h1> No Date Time data in Image</h1> }
+                    {stateContext.dateTime ? <RenderDateTimeComponent context={props.context}/> : <h1> No Date Time data in Image</h1> }
                 </div>
             </div>
             <div className='selectImage'>
             <img className='image' src={stateContext.selectImage.image} alt={stateContext.selectImage.name}  style={{width: "500px", height: "500px"}} ref={imageRef}/>
             </div>
             <div className="editControls">
-                <ToolBar imageRef={imageRef}  modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} context={context}/>
+                <ToolBar imageRef={imageRef}  modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} context={props.context}/>
             </div>
             </div>
             <div className="imagesCtrlButtons">

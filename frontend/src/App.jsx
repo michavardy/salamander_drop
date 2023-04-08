@@ -35,13 +35,13 @@ const App = () => {
     <div className="appContainer">
       <div className="logo"><Logo/></div>
       <div className="appBody">
-        <stateContext.Provider value={{stateContext, setStateContext}}>
+        <context.Provider value={{stateContext, setStateContext}}>
           {
             stateContext.files && (stateContext.selectImage == null) ? (<Images context={context} />)
             : (stateContext.files && stateContext.selectImage) !== null ? (<SelectImageEdit context={context}/>)
             : (<Landing context={context}/>)
           }
-        </stateContext.Provider>
+        </context.Provider>
         </div>
     </div>
   )
