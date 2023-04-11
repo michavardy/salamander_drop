@@ -259,6 +259,42 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+.formTitle{
+  padding:10px;
+  display:flex;
+  justify-content:center;
+}
+.formSubmit{
+  padding:10px;
+  display:flex;
+  justify-content:center;
+}
+.modalForm{
+  display:flex;
+  flex-direction:column;
+}
+.formLine{
+  padding:10px;
+  display:flex;
+  flex-direction:row;
+
+}
+
+.formLabel{
+  font-weight: bold;
+  font-family:D-DIN;
+  font-size:20px;
+  width:30%;
+}
+.formInput{
+  padding:1px;
+  text-align:center;
+  width:50%;
+  font-family:D-DIN;
+  font-size:18px;
+  
+}
+
 /* Modal content */
 .modalContent {
   background-color: #fefefe;
@@ -283,3 +319,30 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.formSubmitContainer{
+  display:flex;
+  justify-content:center;
+}
+
+.formSubmit{
+  height: 50px;
+  width: 200px;
+  background-color: var(--selection-color);
+  border: 1px solid var(--primary-color);
+  color:var(--secondary-color);
+  text-align: center;
+  font-size: 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-family:D-DIN;
+
+}
+.formSubmit:active {
+  background-color: var(--text-color);
+  color:var(--text-color);
+  }
+
+  .formSubmit:hover {
+  border: 3px solid var(--secondary-color);
+  }

@@ -6,23 +6,39 @@ import GoogleMapReact from 'google-map-react';
 
 
 const Modal = (props) => {
-    console.log("modal props")
+
+    // imgData={props.selectImage} DateTime={DateTime} GPS={GPS} modalRef={modalRef} selectImageBodyRef={selectImageBodyRef}
+    console.log('modal props')
     console.log(props)
     
-    function handleChange(event){
-        console.log('modal text box')
-        console.log(event)
-    }
     return (
             <div className="modalContent">
                 <button className="close" onClick={()=>{
                     props.modalRef.current.style.display = 'None';
                     props.selectImageBodyRef.current.style.display='flex';
+                    props.setShowModal(prevState => !prevState);
                     }}>x</button>
-                <h1> Edit Data</h1>
+                <h1 className="formTitle"> Edit Image Data</h1>
                 <div className="modalForm">
-                    <label for="imageName">Image Name: </label>
-                    <input type="text" id="imageName" value={props.} onChange={handleChange}></input>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="imageName">Image Name: </label>
+                    <input className="formInput" type="text" id="imageName" value={props.imgData.name}/>
+                    </div>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="imageDateTime">Image Date Time: </label>
+                    <input className="formInput" type="text" id="imageDateTime" value={props.DateTime}/>
+                    </div>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="imageGPS">Image GPS: </label>
+                    <input className="formInput" type="text" id="imageGPS" value={`${props.GPS.Latitude.toFixed(3)}, ${props.GPS.Longitude.toFixed(3)}`}/>
+                    </div>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="imageContributer">Image Contributer: </label>
+                    <input className="formInput" type="text" id="imageContributer" value={"NA"}/>
+                    </div>
+                </div>
+                <div className="formSubmitContainer">
+                    <button className="formSubmit" onClick={()=>{}}>Submit</button>
                 </div>
 
             </div>
@@ -48,6 +64,7 @@ const ToolBar = (props) => {
         console.log(scale);
       }, [scale]);
       useEffect(() => {
+        console.log('show modal')
         console.log(props.showModal);
       }, [props.showModal]);
     return(
@@ -257,7 +274,7 @@ const SelectImage = (props) => {
             <div className="ModalContainer" ref={modalRef}>
             {
                 showModal ? 
-                <Modal imgData={props.selectImage} DateTime={DateTime} GPS={GPS} modalRef={modalRef} selectImageBodyRef={selectImageBodyRef}/>
+                <Modal imgData={props.selectImage} DateTime={DateTime} GPS={GPS} modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} setShowModal={setShowModal}/>
                 : <div></div>
             }
 
