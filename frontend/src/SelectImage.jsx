@@ -6,11 +6,44 @@ import GoogleMapReact from 'google-map-react';
 
 
 const Modal = (props) => {
-
+    const [formObject, setFormObject] = useState({})
     // imgData={props.selectImage} DateTime={DateTime} GPS={GPS} modalRef={modalRef} selectImageBodyRef={selectImageBodyRef}
+    useEffect(()=>{
+        setFormObject((prevForm)=>({
+            ...prevForm, 
+            Name: props.imgData.name,
+            DateTime: props.DateTime,
+            Latitude: props.GPS.Latitude.toPrecision(5),
+            Longitude: props.GPS.Longitude.toPrecision(5),
+            Contributer: "NA"
+
+        }))
+    },[props])
     console.log('modal props')
     console.log(props)
-    
+    useEffect(()=>{
+        console.log('form object')
+        console.log(formObject);
+        },[formObject])
+
+    function handleGPSLatitude(event){
+        const newLat = parseFloat(event.target.value)
+        setFormObject((prevForm)=>({...prevForm, Latitude:newLat}))
+    }
+    function handleGPSLongitude(event){
+        const newLong = parseFloat(event.target.value)
+        setFormObject((prevForm)=>({...prevForm, Longitude:newLong}))
+    }
+
+    function handleSubmit(event){
+        props.setImgData((prevData)=>({...prevData, name:formObject.Name}));
+        props.setDateTime(prev => formObject.DateTime);
+        props.setGPS((prev)=>({...prev, Latitude:formObject.Latitude, Longitude:formObject.Longitude}))
+        props.modalRef.current.style.display = 'None';
+        props.selectImageBodyRef.current.style.display='flex';
+        props.setShowModal(prevState => !prevState);
+    }
+
     return (
             <div className="modalContent">
                 <button className="close" onClick={()=>{
@@ -22,23 +55,28 @@ const Modal = (props) => {
                 <div className="modalForm">
                     <div className="formLine">
                     <label className="formLabel" htmlFor="imageName">Image Name: </label>
-                    <input className="formInput" type="text" id="imageName" value={props.imgData.name}/>
+                    <input className="formInput" type="text" id="imageName" value={formObject.Name} onChange={(event)=>{setFormObject((prevForm)=>({...prevForm, Name: event.target.value}))}}/>
                     </div>
                     <div className="formLine">
                     <label className="formLabel" htmlFor="imageDateTime">Image Date Time: </label>
-                    <input className="formInput" type="text" id="imageDateTime" value={props.DateTime}/>
+                    <input className="formInput" type="text" id="imageDateTime" value={formObject.DateTime} onChange={(event)=>{setFormObject((prevForm)=>({...prevForm, DateTime: event.target.value}))}}/>
                     </div>
                     <div className="formLine">
-                    <label className="formLabel" htmlFor="imageGPS">Image GPS: </label>
-                    <input className="formInput" type="text" id="imageGPS" value={`${props.GPS.Latitude.toFixed(3)}, ${props.GPS.Longitude.toFixed(3)}`}/>
+                    <label className="formLabel" htmlFor="Latitude">Image GPS Latitude: </label>
+                    <input className="formInput" type="text" id="Latitude" value={formObject.Latitude} onChange={handleGPSLatitude}/>
+                    
+                    </div>
+                    <div className="formLine">
+                    <label className="formLabel" htmlFor="Longitude">Image GPS Longitude: </label>
+                    <input className="formInput" type="text" id="Longitude" value={formObject.Longitude} onChange={handleGPSLongitude}/>
                     </div>
                     <div className="formLine">
                     <label className="formLabel" htmlFor="imageContributer">Image Contributer: </label>
-                    <input className="formInput" type="text" id="imageContributer" value={"NA"}/>
+                    <input className="formInput" type="text" id="imageContributer" value={formObject.Contributer} onChange={(event)=>{setFormObject((prevForm)=>({...prevForm, Contributer: event.target.value}))}}/>
                     </div>
                 </div>
                 <div className="formSubmitContainer">
-                    <button className="formSubmit" onClick={()=>{}}>Submit</button>
+                    <button className="formSubmit" onClick={handleSubmit}>Submit</button>
                 </div>
 
             </div>
@@ -105,6 +143,8 @@ const RenderDateTimeComponent = (props) => {
     const [city, setCity] = useState(null);
     const [district, setDistrict] = useState(null);
     const [country, setCountry] = useState(null);
+    console.log("render date time component")
+    console.log(props)
     useEffect(() => {
         async function fetchGeo() {
           try {
@@ -122,9 +162,9 @@ const RenderDateTimeComponent = (props) => {
     useEffect(()=>{
         if (geo){
             console.log(geo)
-            const cty = geo.results[0].address_components[1].short_name
+            const cty = geo.results[0].address_components[1]?.short_name
             setCity(cty);
-            const dstrct = geo.results[0].address_components[3].short_name
+            const dstrct = geo.results[0].address_components[3]?.short_name
             setDistrict(dstrct);
             const ctry = geo.results[geo.results.length - 1].formatted_address
             setCountry(ctry)
@@ -274,7 +314,16 @@ const SelectImage = (props) => {
             <div className="ModalContainer" ref={modalRef}>
             {
                 showModal ? 
-                <Modal imgData={props.selectImage} DateTime={DateTime} GPS={GPS} modalRef={modalRef} selectImageBodyRef={selectImageBodyRef} setShowModal={setShowModal}/>
+                <Modal 
+                imgData={props.selectImage} 
+                setImgData={props.setSelectImage}
+                DateTime={DateTime} 
+                setDateTime={setDateTime}
+                GPS={GPS} 
+                setGPS={setGPS}
+                modalRef={modalRef} 
+                selectImageBodyRef={selectImageBodyRef} 
+                setShowModal={setShowModal}/>
                 : <div></div>
             }
 
