@@ -278,10 +278,12 @@ const SelectImage = (props) => {
     useEffect(()=>{
         const md = extractMetadataFromBase64Image(props.selectImage.image);
         setMetaData(md);
+       // props.setSelectImage((prev)=>({...prev, metaData: md}))
     },[props])
     useEffect(()=>{
         const dt = extractDateTimeFromMetaData(metaData)
         setDateTime(dt);
+        //props.setSelectImage((prev)=>({...prev, dateTime: dt}))
     },[metaData])
     useEffect(()=>{
         const gps = extractGPSFromMetaData(metaData)
@@ -300,9 +302,12 @@ const SelectImage = (props) => {
                 gps[key] = decimal
             }
             setGPS(gps)
+            //props.setSelectImage((prev)=>({...prev, GPS: gps}))
+
         }
         else{
             setGPS(null) 
+            //props.setSelectImage((prev)=>({...prev, GPS: null}))
         }
 
     },[GPSDMS])
