@@ -1,4 +1,4 @@
-import Icons from './images/icons.json'
+import Icons from '../images/icons.json'
 
 const SvgGenerator = (props) => {
 

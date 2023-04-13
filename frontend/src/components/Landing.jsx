@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import './global.css';
-import Upload from './images/UploadImage'
+import '../global.css';
+import Upload from '../images/UploadImage'
 
 
 const Landing = (props) => {

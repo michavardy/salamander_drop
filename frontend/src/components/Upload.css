@@ -1,0 +1,43 @@
+  /* ##################   Variables ########################### */
+:root {
+  --background-color: #1e1e1e; /* Light theme background color */
+  --primary-color: #252526; /* Light theme primary color */
+  --secondary-color: #191f24; /* Light theme secondary color */
+  --border-color: #333333; /* Light theme border color */
+  --text-color: #f2f2f2; /* Light theme text color */
+  --selection-color: #f2f2f2; /* Light theme selection color */
+  --accept-color: #37c837; /* Light theme accept color */
+  --reject-color: #c83737; /* Light theme reject color */
+  --salamander-black: #000000; 
+  --salamander-yellow:#fcf84a;
+}
+
+.UploadContainer{
+    padding:1px;
+    height:100vh;
+    width:176vh;
+    background-color: var(--primary-color);
+    display:flex;
+    flex-direction: row;
+
+}
+.ImageDataContainer{
+    order: 10px solid var(--border-color);
+    background-color:var(--secondary-color);
+    width:100vh;
+    height: 100vh;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items:center;
+}
+.ImageArrayContainer{
+    border: 5px solid var(--border-color);
+    background-color:var(--secondary-color);
+    width: 150vh;
+    height: 100vh;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items:center;
+}
