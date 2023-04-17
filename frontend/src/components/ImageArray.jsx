@@ -1,6 +1,7 @@
 import '../global.css'
 import React, {useState, useEffect, useContext} from 'react'
 import {ImageContext} from './Upload'
+import EXIF from 'exif-js';
 
 
 const Thumbnail = (props)=>{
@@ -63,15 +64,24 @@ const extractMetadataFromBase64Image = (base64Image) => {
         });
     }
 
-    async function extractImages(){
-        const imageObj = await Promise.all(files.map((file, index)=>{
-            return loadImages(file, index)
-        }))
-        Promise.allSettled(imageObj).then((result)=>{
-            let resolvedImageObj = result.filter((res) => res.status === "fulfilled").map((res) => res.value);
-            resolvedImageObj = resolvedImageObj.map((im)=>({...im, Contributer:"NA"}))
-            setImageData(Object.values(resolvedImageObj));
-        })}
+    async function extractImages() {
+        const imageObj = await Promise.all(files.map((file, index) => {
+          return loadImages(file, index);
+        }));
+      
+        Promise.allSettled(imageObj).then((result) => {
+          const resolvedImageObj = result.filter((res) => res.status === "fulfilled").map((res) => {
+            const imageObj = res.value;
+            const metadata = extractMetadataFromBase64Image(imageObj.image);
+            return {
+              ...imageObj,
+              Contributer: "NA",
+              metadata: metadata,
+            };
+          });
+          setImageData(resolvedImageObj);
+        });
+      }
 
     useEffect(()=>{extractImages()},[files])
     useEffect(()=>{},[imageData])
