@@ -18,10 +18,6 @@ const Thumbnail = (props)=>{
 
 const ImageArray = () => {
     const { files, imageDataCollapsed, imageData, setImageData, setSelectedImageIndex, selectedImageIndex } = useContext(ImageContext);
-    
-    function addMetaData(){
-        setImageData(()=>({...imageData, Contributer:"NA"}))
-    }
 
     function renderGrid(){
         console.log("imageData")
@@ -36,6 +32,18 @@ const ImageArray = () => {
             </div>
           );
     }
+   
+const extractMetadataFromBase64Image = (base64Image) => {
+    const binaryImage = atob(base64Image.split(',')[1]); // convert base64 to binary
+    const buffer = new ArrayBuffer(binaryImage.length); // create an ArrayBuffer from binary data
+    const view = new Uint8Array(buffer); // create a view to access the buffer
+    for (let i = 0; i < binaryImage.length; i++) {
+        view[i] = binaryImage.charCodeAt(i); // copy binary data to the buffer
+      }
+      const exifData = EXIF.readFromBinaryFile(buffer); // read EXIF data from buffer
+      return exifData;
+  }
+   
     function loadImages(file, index){
         return new Promise((resolve, reject)=>{
             const reader = new FileReader();
@@ -56,10 +64,13 @@ const ImageArray = () => {
     }
 
     async function extractImages(){
-        const imageObj = await Promise.all(files.map((file, index)=>{return loadImages(file, index)}))
+        const imageObj = await Promise.all(files.map((file, index)=>{
+            return loadImages(file, index)
+        }))
         Promise.allSettled(imageObj).then((result)=>{
-            const resolvedImageObj = result.filter((res) => res.status === "fulfilled").map((res) => res.value);
-            setImageData(resolvedImageObj);
+            let resolvedImageObj = result.filter((res) => res.status === "fulfilled").map((res) => res.value);
+            resolvedImageObj = resolvedImageObj.map((im)=>({...im, Contributer:"NA"}))
+            setImageData(Object.values(resolvedImageObj));
         })}
 
     useEffect(()=>{extractImages()},[files])
