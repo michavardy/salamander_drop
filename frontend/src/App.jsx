@@ -9,7 +9,7 @@ const App = () => {
     <div className="appContainer">
       <div className="appBody">
         {
-          files ? (<Upload/>)
+          files ? (<Upload files={files} setFiles={setFiles}/>)
           : (<Landing setFiles={setFiles}/>)
         }
         </div>

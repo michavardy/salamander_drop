@@ -121,14 +121,7 @@
     align-items: center;
   }
 
-  .imageArrayContainer{
-    flex:1;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height:90vh;
-  }
+  /* ##################  Collapse Button ########################### */
 
   .collapsibleButtonContainer{
     display:flex;
@@ -160,7 +153,18 @@
     color: var(--primary-color)
   }
 
-  .ImageDataContainer{
+    /* ##################  ImageArray ########################### */
+
+    .imageArrayContainer{
+      flex:1;
+      height:90vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .ImageDataContainer{
     width:80vh;
     height:90vh;
     display: flex;
@@ -168,3 +172,99 @@
     justify-content: center;
     align-items: center;
   }
+ .thumbnailCard{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid darkolivegreen;
+  padding:20px;
+ }
+ .thumbnailCard:hover{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:20px;
+  border: 5px solid var(--border-color);
+ }
+ .thumbnailCard:active{
+  background-color:var(--selection-color);
+ }
+  .thumbnail{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img{
+    width:300px;
+    height:300px;
+    object-fit:cover;
+    object-position: center;
+  }
+
+  .thumbnailName{
+    color:var(--text-color)
+  }
+
+  .imageGridContainer {
+    display: grid;
+    grid-template-columns: repeat(6,   minmax(150px, 1fr));
+    grid-template-rows: repeat(auto-fill, auto);
+    gap: 5px;
+    overflow-y: auto;
+    max-height: 90vh;
+    max-width:100%;
+    direction: ltr;
+  }
+
+  /* ##################  imageDataForm ########################### */
+.imageDataContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height:90vh;
+}
+
+.imageDataForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+.imageDataFormRow{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding:10px;
+}
+
+.imageDataFormTitle{
+  color:var(--text-color);
+  font-size: 30px;
+}
+
+.imageDataFormLabel{
+  grid-column: 1 / 2;
+  text-align: left;
+  color:var(--text-color);
+  font-size: 18px;
+}
+
+.imageDataFormInput {
+  grid-column: 2 / 3;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  max-width: 90%;
+}
