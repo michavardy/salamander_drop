@@ -2,6 +2,7 @@ import '../global.css'
 import React, {useState, useEffect, useContext} from 'react'
 import {ImageContext} from './Upload'
 import EXIF from 'exif-js';
+import GoogleMapReact from 'google-map-react';
 
 
 const Thumbnail = (props)=>{
@@ -33,7 +34,26 @@ const ImageArray = () => {
             </div>
           );
     }
-   
+
+
+async function geoFetch (base64Image, gps_latitude, gps_longitude){
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${gps_latitude},${gps_longitude}&key=AIzaSyDAl5UCGrZAxSUDeWqIkIH5oqsDF-CRKWs`;
+    const response = await fetch(url);
+    const json = await response.json();
+    return json;
+}
+
+function dmsToDecimal(degrees, minutes, seconds, direction){
+    return new Promise((resolve, reject) => {
+        try{
+            let decimal = degrees + minutes/60 + seconds/3600;
+            if (direction === "S" || direction === "W") {decimal = -decimal;}
+            resolve (decimal);
+        }
+        catch{
+            reject(null)
+        }})}
+
 const extractMetadataFromBase64Image = (base64Image) => {
     const binaryImage = atob(base64Image.split(',')[1]); // convert base64 to binary
     const buffer = new ArrayBuffer(binaryImage.length); // create an ArrayBuffer from binary data
