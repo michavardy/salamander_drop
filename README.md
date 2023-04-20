@@ -1,7 +1,7 @@
 # Salamander Drop
 ### Drag and Drop Image Uploader
 
-![demo.gif](demo)
+![](demo.gif)
 
 ---
 ## Purpose
