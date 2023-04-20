@@ -229,7 +229,7 @@
 .imageDataContainer{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height:90vh;
 }
@@ -267,4 +267,10 @@
   border-radius: 5px;
   border: none;
   max-width: 90%;
+}
+
+  /* ##################  imageTimeStamp ########################### */
+.imageDataTimeStamp{
+  background-color: var(--secondary-color);
+  padding: 10px;
 }

@@ -5,13 +5,13 @@ import EXIF from 'exif-js';
 import GoogleMapReact from 'google-map-react';
 
 
-const Thumbnail = (props)=>{
+const Thumbnail = ({ index, setSelectedImageIndex, image, name })=>{
 
     return(
         <div className="thumbNailContainer">
-            <div className="thumbnailCard" onClick={()=>{props.setSelectedImageIndex(props.index)}}>
-            <img src={props.image} className="thumbnail"  style={{width:'200px', height:'200px'}}/>
-                <h3 className="thumbnailName">{props.name}</h3>
+            <div className="thumbnailCard" onClick={()=>{setSelectedImageIndex(Number(index))}}>
+            <img src={image} className="thumbnail"  style={{width:'200px', height:'200px'}}/>
+                <h3 className="thumbnailName">{name}</h3>
             </div>
             
         </div>
@@ -36,9 +36,9 @@ const ImageArray = () => {
     }
 
 
-async function geoFetch (base64Image, gps_latitude, gps_longitude){
+async function geoFetch ( gps_latitude, gps_longitude){
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${gps_latitude},${gps_longitude}&key=AIzaSyDAl5UCGrZAxSUDeWqIkIH5oqsDF-CRKWs`;
-    const response = await fetch(url);
+    const response =  await fetch(url);
     const json = await response.json();
     return json;
 }
@@ -88,8 +88,7 @@ const extractMetadataFromBase64Image = (base64Image) => {
         const imageObj = await Promise.all(files.map((file, index) => {
           return loadImages(file, index);
         }));
-      
-        Promise.allSettled(imageObj).then((result) => {
+        const imageDataObj = await Promise.allSettled(imageObj).then((result) => {
           const resolvedImageObj = result.filter((res) => res.status === "fulfilled").map((res) => {
             const imageObj = res.value;
             const metadata = extractMetadataFromBase64Image(imageObj.image);
@@ -99,8 +98,50 @@ const extractMetadataFromBase64Image = (base64Image) => {
               metadata: metadata,
             };
           });
-          setImageData(resolvedImageObj);
+          //setImageData(resolvedImageObj);
+          return resolvedImageObj
         });
+        const imageDataDecimalGPS = await Promise.all(imageDataObj.map(async (obj)=>{
+            try{
+                const latGPS = await dmsToDecimal(obj.metadata.GPSLatitude[0],obj.metadata.GPSLatitude[1],obj.metadata.GPSLatitude[2], obj.metadata.GPSLatitudeRef)
+                const longGPS = await dmsToDecimal(obj.metadata.GPSLongitude[0],obj.metadata.GPSLongitude[1],obj.metadata.GPSLongitude[2], obj.metadata.GPSLongitudeRef)
+                return {
+                    ...obj,
+                    latGPS,
+                    longGPS
+                }
+            }
+            catch{
+                return{
+                    ...obj,
+                    latGPS:null,
+                    longGPS:null  
+                }
+            }}))
+        const imageDataGeo = await Promise.all(imageDataDecimalGPS.map(async (obj)=>{
+            try {
+                const Geo = await geoFetch(obj.latGPS, obj.longGPS)
+                return{
+                    ...obj,
+                    geo:Geo,
+                    city: Geo.results[0].address_components[1].short_name,
+                    district: Geo.results[0].address_components[3].short_name,
+                    country: Geo.results[Geo.results.length - 1].formatted_address
+                }
+            }
+            catch {
+                return {
+                    ...obj,
+                    geo:null,
+                    city:null,
+                    district:null,
+                    country:null
+
+                }
+            }
+        }))
+        setImageData(imageDataGeo);
+            
       }
 
     useEffect(()=>{extractImages()},[files])
