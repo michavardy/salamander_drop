@@ -225,6 +225,20 @@
     direction: ltr;
   }
 
+  /* ##################  imageData ########################### */
+
+  /* ##################  imageDataImage Toolbar ########################### */ 
+  .imageDataImage{
+    display: flex;
+    justify-content: center;
+  }
+  .toolBarContainer{
+    display: flex;
+    flex-direction: row;
+  }
+  .icon{
+    padding:10px;
+  }
   /* ##################  imageDataForm ########################### */
 .imageDataContainer{
   display: flex;

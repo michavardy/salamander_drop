@@ -1,6 +1,7 @@
 import '../global.css'
 import {useContext, useEffect, useRef} from 'react'
 import {ImageContext} from './Upload'
+import ToolBar from './ToolBar'
 
 const ImageData = () => {
     const { imageDataRef, selectedImageIndex, imageData, setImageData, metaData, setMetaData } = useContext(ImageContext);
@@ -63,8 +64,13 @@ const ImageData = () => {
               <div className="imageDataDisplay">
               </div>
               </div>
+              <div className="imageDataImageContainer">
               <div className="imageDataImage">
                 <img src={imageData[Number(selectedImageIndex)].image} className="thumbnail"  style={{width:'200px', height:'200px'}}/>
+              </div>
+              <div className="imageDataImageManipulationButtons">
+                      <ToolBar/>
+              </div>
               </div>
               <div className="imageDataTimeStamp">
               <div style={{fontSize:"50px",color:"var(--text-color)"}}>{imageData[selectedImageIndex].city}</div>

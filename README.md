@@ -14,7 +14,7 @@
 | login and oath                                     | \*         |        |     |
 | image loading bar                                  | \*\*\*     |        |     |
 | dataset form                                       | \*\*\*     |        |     |
-| buttons for image manipulation                     | \*\*\*\*\* | WIP    | MV  |
+| buttons for image manipulation                     | \*\*\*\*\* | Done   | MV  |
 | image data can be changed and saved                | \*\*\*\*   |        |     |
 | HTTP communication between front end and backend   | \*\*\*\*\* | WIP    | MV  |
 | image background removal feaeture                  | \*\*\*\*\* |        |     |
