@@ -4,6 +4,32 @@
 ![](demo.gif)
 
 ---
+## whats missing (MVP)
+**in no particular order**
+
+**Priority listed in 1 to 5 stars after feature**
+
+| task                                               | priority   | status | DEV |
+| -------------------------------------------------- | ---------- | ------ | --- |
+| login and oath                                     | \*         |        |     |
+| image loading bar                                  | \*\*\*     |        |     |
+| dataset form                                       | \*\*\*     |        |     |
+| buttons for image manipulation                     | \*\*\*\*\* | WIP    | MV  |
+| image data can be changed and saved                | \*\*\*\*   |        |     |
+| HTTP communication between front end and backend   | \*\*\*\*\* | WIP    | MV  |
+| image background removal feaeture                  | \*\*\*\*\* |        |     |
+| remove image background upon loading               | \*\*\*\*\* |        |     |
+| add buttons for image manipulation features        | \*\*\*\*\* |        |     |
+| image roate feature                                | \*\*\*\*\* |        |     |
+| image glare removal feature                        | \*\*\*\*\* |        |     |
+| image enlarge or reduce size                       | \*\*\*\*\* |        |     |
+| image denied feature                               | \*\*\*\*\* |        |     |
+| submit button for dataset                          | \*\*\*\*\* |        |     |
+| saving dataset with images and metadata in mongoDB | \*\*\*\*\* |        |     |
+| deploy on server                                   | \*\*\*\*\* |        |     |
+
+
+---
 ## Purpose
 The goal of Salamnder Drop is to provide an interface for salamander researchers to post, preprocess and store image data.
 The Salamander image data will be passed through a IBEIS matching algorithem to find matches to other photographs of the same individual.
@@ -90,26 +116,6 @@ Note: Currently only the researcher submission workflow is in active development
     ```
 4. if any additional packages are used they must be added to dockerfiles
 ---
-## whats missing (MVP)
-**in no particular order**
-**Priority listed in 1 to 5 stars after feature**
-1. login and oath *
-1. image loading bar ***
-1. dataset form ***
-1. image data can be changed and saved ****
-1. HTTP communication between front end and backend *****
-1. image background removal feaeture *****
-1. remove image background upon loading *****
-1. add buttons for image manipulation features *****
-1. image roate feature *****
-1. iamge glare removal feature *****
-1. iamge enlarge or reduce size *****
-1. image denied feature *****
-1. submit button for dataset *****
-1. saving dataset with images and metadata in mongoDB *****
-1. deploy on server *****
-
-___
 
 ## Commands to setup
 ```
