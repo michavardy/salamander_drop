@@ -17,7 +17,7 @@
 | buttons for image manipulation                     | \*\*\*\*\* | Done   | MV  |
 | image data can be changed and saved                | \*\*\*\*   |        |     |
 | HTTP communication between front end and backend   | \*\*\*\*\* | WIP    | MV  |
-| image background removal feaeture                  | \*\*\*\*\* |        |     |
+| image background removal feature                   | \*\*\*\*\* | WIP    | MV  |
 | remove image background upon loading               | \*\*\*\*\* |        |     |
 | add buttons for image manipulation features        | \*\*\*\*\* |        |     |
 | image roate feature                                | \*\*\*\*\* |        |     |

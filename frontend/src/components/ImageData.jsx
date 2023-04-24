@@ -14,6 +14,7 @@ const ImageData = () => {
       const Minute =  DateTimeArray[4]
       return `${Year}-${Month}-${Day}T${Hour}:${Minute}`
     }
+
     function handleClick(){
       fetch('http://localhost:8000/image', {
         method: 'POST',
@@ -24,7 +25,7 @@ const ImageData = () => {
       })
       .then(response => {
         if (response.ok) {
-          console.log('Image translated and saved');
+          console.log('recieved');
         } else {
           console.log('Error translating image');
         }
@@ -33,6 +34,30 @@ const ImageData = () => {
         console.log(error);
       });
     }
+
+    function handleReduceGlare(){
+      fetch('http://localhost:8000/reduce_glare', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          image_name: imageData[selectedImageIndex].name,
+          image_data:  imageData[selectedImageIndex].image,
+          action:"reduce_glare"})
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('recieved');
+        } else {
+          console.log('Error translating image');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+
     return (
         selectedImageIndex>0 ? (
             <div className="imageDataContainer" ref={imageDataRef}>
@@ -69,7 +94,7 @@ const ImageData = () => {
                 <img src={imageData[Number(selectedImageIndex)].image} className="thumbnail"  style={{width:'200px', height:'200px'}}/>
               </div>
               <div className="imageDataImageManipulationButtons">
-                      <ToolBar/>
+                      <ToolBar handleReduceGlare={handleReduceGlare}/>
               </div>
               </div>
               <div className="imageDataTimeStamp">
