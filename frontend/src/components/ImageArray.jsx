@@ -95,6 +95,7 @@ const extractMetadataFromBase64Image = (base64Image) => {
             return {
               ...imageObj,
               Contributer: "NA",
+              Rejected:false,
               metadata: metadata,
             };
           });

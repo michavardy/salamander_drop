@@ -16,7 +16,7 @@
 | dataset form                                       | \*\*\*     |        |     |
 | buttons for image manipulation                     | \*\*\*\*\* | Done   | MV  |
 | image data can be changed and saved                | \*\*\*\*   |        |     |
-| HTTP communication between front end and backend   | \*\*\*\*\* | WIP    | MV  |
+| HTTP communication between front end and backend   | \*\*\*\*\* | Done   | MV  |
 | image background removal feature                   | \*\*\*\*\* | WIP    | MV  |
 | remove image background upon loading               | \*\*\*\*\* |        |     |
 | add buttons for image manipulation features        | \*\*\*\*\* |        |     |

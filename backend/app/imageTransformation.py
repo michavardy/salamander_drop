@@ -9,6 +9,7 @@ from dataclasses import dataclass
 import numpy as np
 from typing import List
 from tqdm import tqdm
+from rembg import remove
 
 CWD = Path.cwd()
 sys.path.append(CWD)
@@ -22,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 """
     for testing
-    # python test_opencv.py -i ../../testing/sample_dataset -o ../../testing/test_1 --remove_background
+    # python imageTransformation.py -i ../../testing/sample_dataset -o ../../testing/test_2 --remove_background
 """
 
 @dataclass
@@ -97,7 +98,9 @@ class ImageManipulate:
             img.transformation_list.append(self.action)
     def remove_background(self):
         logger.info(self.action)
-        pass
+        for img in tqdm(self.image_collection, desc=f"apply {self.action}"):
+            img.image_transformed = remove(img.image_transformed)
+        img.transformation_list.append(self.action)
 def arg_parse():
     # Set up command line argument parser
     parser = argparse.ArgumentParser(description='test openCV image manipulation')

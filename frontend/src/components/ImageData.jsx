@@ -47,15 +47,41 @@ const ImageData = () => {
           action:"reduce_glare"})
       })
       .then(response => {
+        
         if (response.ok) {
-          console.log('recieved');
+          console.log("reduce glare response recieved");
+          return response.json();
+        
         } else {
           console.log('Error translating image');
         }
       })
       .catch(error => {
         console.log(error);
-      });
+      })
+      .then(transformedImage=>{
+        console.log(transformedImage);
+        setImageData(img_data => {
+          return img_data.map((imageObj, index)=>{
+            if (index===selectedImageIndex){
+              return {
+                ...imageObj,
+                image: transformedImage.image
+              }}
+            else {
+              return imageObj
+            }
+            })
+          })
+        })
+      .catch(error=>{
+        console.log(error)
+      })
+    }
+
+
+    function handleRejected(){
+      imageData[selectedImageIndex].Rejected=true
     }
 
     return (
@@ -94,7 +120,7 @@ const ImageData = () => {
                 <img src={imageData[Number(selectedImageIndex)].image} className="thumbnail"  style={{width:'200px', height:'200px'}}/>
               </div>
               <div className="imageDataImageManipulationButtons">
-                      <ToolBar handleReduceGlare={handleReduceGlare}/>
+                      <ToolBar handleReduceGlare={handleReduceGlare} handleRejected={handleRejected}/>
               </div>
               </div>
               <div className="imageDataTimeStamp">
