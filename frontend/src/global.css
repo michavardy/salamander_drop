@@ -123,9 +123,9 @@
 
   /* ##################  Collapse Button ########################### */
 
-  .collapsibleButtonContainer{
+  .collapseButtonContainer{
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     height:90vh;
     width:3vh;
     justify-content: center;
@@ -133,7 +133,6 @@
   }
 
   .collapseButton{
-    height:80px;
     background-color: var(--primary-color);
     color:var(--text-color);
     font: size 50px;
@@ -141,6 +140,12 @@
     border: 2px solid var(--border-color);
     cursor: pointer;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    writing-mode: sideways-lr; /* set writing mode to display text vertically */
+    text-orientation: mixed; /* allow both horizontal and vertical text */
+    text-align: center; /* center align text */
+    white-space: nowrap; /* prevent text from wrapping */
+    padding: 20px 0; /* remove padding */
+    line-height: 1; /* set line height to 1 to prevent extra space */
   }
 
   .collapseButton:hover {
@@ -150,7 +155,8 @@
   
   .collapseButton:active {
     background-color: var(--selection-color);
-    color: var(--primary-color)
+    color: var(--primary-color);
+    transform: scale(0.9);
   }
 
     /* ##################  ImageArray ########################### */
@@ -238,7 +244,18 @@
   }
   .icon{
     padding:10px;
+    color:var(--selection-color)
   }
+  .icon:active{
+    background-color: var(--selection-color);
+    color:var(--background-color);
+    transform: scale(0.9);
+
+  }
+  .icon:hover{
+    background-color: grey;
+  }
+
   /* ##################  imageDataForm ########################### */
 .imageDataContainer{
   display: flex;

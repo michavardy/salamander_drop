@@ -2,9 +2,10 @@ import '../global.css'
 import {useContext, useEffect, useRef} from 'react'
 import {ImageContext} from './Upload'
 import ToolBar from './ToolBar'
+import {handleFetchImage} from './Upload'
 
-const ImageData = () => {
-    const { imageDataRef, selectedImageIndex, imageData, setImageData, metaData, setMetaData } = useContext(ImageContext);
+const ImageData = (props) => {
+    const { imageDataRef, selectedImageIndex, imageData, setImageData, metaData, setMetaData, pane } = useContext(ImageContext);
     function toDateTimeLocal(DateTime){
       const DateTimeArray = DateTime.replace(' ', ":").split(":")
       const Year = DateTimeArray[0]
@@ -15,26 +16,49 @@ const ImageData = () => {
       return `${Year}-${Month}-${Day}T${Hour}:${Minute}`
     }
 
-    function handleClick(){
-      fetch('http://localhost:8000/image', {
+    function handleRotate(){
+      fetch('http://localhost:8000/rotate_image', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ image_data: imageData[selectedImageIndex].image})
+        body: JSON.stringify({ 
+          image_name: imageData[selectedImageIndex].name,
+          image_data:  imageData[selectedImageIndex].image,
+          action:"rotate_image"})
       })
       .then(response => {
+        
         if (response.ok) {
-          console.log('recieved');
+          console.log("rotate_image response recieved");
+          return response.json();
+        
         } else {
           console.log('Error translating image');
         }
       })
       .catch(error => {
         console.log(error);
-      });
+      })
+      .then(transformedImage=>{
+        console.log(transformedImage);
+        setImageData(img_data => {
+          return img_data.map((imageObj, index)=>{
+            if (index===selectedImageIndex){
+              return {
+                ...imageObj,
+                image: transformedImage.image
+              }}
+            else {
+              return imageObj
+            }
+            })
+          })
+        })
+      .catch(error=>{
+        console.log(error)
+      })
     }
-
     function handleReduceGlare(){
       fetch('http://localhost:8000/reduce_glare', {
         method: 'POST',
@@ -81,11 +105,19 @@ const ImageData = () => {
 
 
     function handleRejected(){
-      imageData[selectedImageIndex].Rejected=true
+      console.log('reject image')
+      imageData[selectedImageIndex].Rejected=true;
+        // Get the thumbnailCard element of the selected image
+      const thumbNailContainer= document.querySelector(`#thumbNailContainer_${selectedImageIndex}`);
+
+      // Update the style of the thumbnailCard element to reflect the rejected status
+      thumbNailContainer.classList.remove('thumbNailCard_accepted')
+      thumbNailContainer.classList.add('thumbNailCard_rejected')
+      
     }
 
     return (
-        selectedImageIndex>0 ? (
+        selectedImageIndex>=0 && pane === 'imageData'? (
             <div className="imageDataContainer" ref={imageDataRef}>
               <div className="imageDataForm">
                  <h2 className="imageDataFormTitle">Image Data</h2>
@@ -120,7 +152,11 @@ const ImageData = () => {
                 <img src={imageData[Number(selectedImageIndex)].image} className="thumbnail"  style={{width:'200px', height:'200px'}}/>
               </div>
               <div className="imageDataImageManipulationButtons">
-                      <ToolBar handleReduceGlare={handleReduceGlare} handleRejected={handleRejected}/>
+                      <ToolBar 
+                      handleReduceGlare={handleReduceGlare} 
+                      handleRejected={handleRejected}
+                      handleRotate={handleRotate} 
+                      />
               </div>
               </div>
               <div className="imageDataTimeStamp">
@@ -135,13 +171,19 @@ const ImageData = () => {
               : "not available"
             }
               </div>
-              <button onClick={handleClick}>send image</button>
+              <button >send image</button>
             </div>
-          ) : (
-            <div className="ImageDataContainer" ref={imageDataRef}>
-              <h3>no image selected</h3>
-            </div>
-          )
+          ) 
+      : pane === 'imageSetData' (
+        <div className="ImageDataContainer" ref={imageDataRef}>
+        <h3>imageSetForm</h3>
+      </div>
+      )
+      : (
+        <div className="ImageDataContainer" ref={imageDataRef}>
+          <h3>no image selected</h3>
+        </div>
+      )
 
     )}
     export default ImageData

@@ -15,61 +15,60 @@ from pathlib import Path
 sys.path.append(Path.cwd())
 from imageTransformation import Image as IMG
 from imageTransformation import ImageManipulate
+import click
+import os
+import uvicorn
+
 #uvicorn main:app --reload
-logger = logging.getLogger("uvicorn.access")
-handler = logging.StreamHandler()
-handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
-logger.addHandler(handler)
-logger.info('starting app')
+#logger = logging.getLogger("uvicorn.error")
+#process_id = os.getpid()
+#logger.info('starting app', process_id)
+
 app = FastAPI()
 origins = ["*"]
 
 
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"],allow_headers=["*"],)
 
-
-
-@app.get("/")
-async def read_root():
-    return {"Hello": "World"}
 class ImageData(BaseModel):
     image_name: str
     image_data: str
     action: str
-
-class ImageArrayData(BaseModel):
-    image_data_list: list
-
     
-@app.post("/image")
-async def image(img: ImageData):
-    logger.info(f'recieved image data: {img.image_data[:100]}')
-    base64_str = img.image_data.replace("data:image/jpeg;base64,","")
-    # Assuming base64_str is the string value without 'data:image/jpeg;base64,'
-    img = Image.open(io.BytesIO(base64.decodebytes(bytes(base64_str, "utf-8"))))
-    img.save('image.jpeg')
-
-    return {"message": "worked"}
-
 @app.post("/reduce_glare")
 async def reduce_glare(img: ImageData):
-    base64_str = img.image_data
-    if "data:image/jpeg;base64," in base64_str:
-        base64_str = base64_str.replace("data:image/jpeg;base64,","")
-    img_io = Image.open(io.BytesIO(base64.decodebytes(bytes(base64_str, "utf-8"))))
-    logger.info(f'type: {type(img_io)}')
-    logger.info(f'action: {img.action}')
-    open_cv_image = np.array(img_io) 
-    image = IMG(
-        name=img.image_name,
-        image=open_cv_image)
-    image_transformed = ImageManipulate([image], ['reduce_glare']).image_collection[0].image_transformed
-    _, buffer = cv2.imencode('.jpg', image_transformed)
-    base64_img = base64.b64encode(buffer).decode('utf-8')
-    base64_img = "data:image/jpeg;base64," + base64_img
+    base64_img = transform_image(img, 'reduce_glare')
     return {"image": base64_img}
 
 @app.post("/remove_background")
-async def remove_background(image_data_list: ImageArrayData):
-    logger.info(f'image_data_list: {image_data_list}')
-    return {"image": "recieved"}
+async def remove_background(img: ImageData):
+    base64_img = transform_image(img, 'remove_background')
+    return {"image": base64_img}
+
+@app.post("/rotate_image")
+async def rotate_image(img: ImageData):
+    base64_img = transform_image(img, 'rotate_image')
+    return {"image": base64_img}
+
+
+def transform_image(img: ImageData, action: str) ->str:
+    open_cv_image = b64_to_cv2(img.image_data)
+    image = IMG(
+        name=img.image_name,
+        image=open_cv_image)
+    image_transformed = ImageManipulate([image], [action]).image_collection[0].image_transformed
+    base64_img = cv2_to_b64(image_transformed)
+    return base64_img
+
+
+def b64_to_cv2(b64_string: str) -> np.ndarray:
+    if "data:image/jpeg;base64," in b64_string:
+        b64_string = b64_string.replace("data:image/jpeg;base64,","")
+    img_io = Image.open(io.BytesIO(base64.decodebytes(bytes(b64_string, "utf-8"))))
+    return np.array(img_io) 
+
+
+def cv2_to_b64(cv2_image:np.ndarray) -> str:
+    _, buffer = cv2.imencode('.jpg', cv2_image)
+    base64_img = base64.b64encode(buffer).decode('utf-8')
+    return "data:image/jpeg;base64," + base64_img

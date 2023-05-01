@@ -8,7 +8,7 @@ import GoogleMapReact from 'google-map-react';
 const Thumbnail = ({ index, setSelectedImageIndex, image, name })=>{
 
     return(
-        <div className="thumbNailContainer">
+        <div className="thumbNailContainer" id={`thumbNailContainer_${index}`}>
             <div className="thumbnailCard" onClick={()=>{setSelectedImageIndex(Number(index))}}>
             <img src={image} className="thumbnail"  style={{width:'200px', height:'200px'}}/>
                 <h3 className="thumbnailName">{name}</h3>
@@ -18,7 +18,7 @@ const Thumbnail = ({ index, setSelectedImageIndex, image, name })=>{
     )
 }
 
-const ImageArray = () => {
+const ImageArray = (props) => {
     const { files, imageDataCollapsed, imageData, setImageData, setSelectedImageIndex, selectedImageIndex } = useContext(ImageContext);
 
     function renderGrid(){
@@ -36,12 +36,7 @@ const ImageArray = () => {
     }
 
 
-async function geoFetch ( gps_latitude, gps_longitude){
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${gps_latitude},${gps_longitude}&key=AIzaSyDAl5UCGrZAxSUDeWqIkIH5oqsDF-CRKWs`;
-    const response =  await fetch(url);
-    const json = await response.json();
-    return json;
-}
+
 
 function dmsToDecimal(degrees, minutes, seconds, direction){
     return new Promise((resolve, reject) => {
@@ -84,6 +79,31 @@ const extractMetadataFromBase64Image = (base64Image) => {
         });
     }
 
+    
+    async function geoFetch ( gps_latitude, gps_longitude){
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${gps_latitude},${gps_longitude}&key=AIzaSyDAl5UCGrZAxSUDeWqIkIH5oqsDF-CRKWs`;
+        const response =  await fetch(url);
+        const json = await response.json();
+        return json;
+    }
+
+
+    async function handleRemoveBackground(image, name){
+        const response = await fetch('http://localhost:8000/remove_background', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            image_name: name,
+            image_data: image,
+            action:"remove_background"})
+        })
+        const json = await response.json()
+        return json.image
+      }
+    
+    
     async function extractImages() {
         const imageObj = await Promise.all(files.map((file, index) => {
           return loadImages(file, index);
@@ -137,13 +157,28 @@ const extractMetadataFromBase64Image = (base64Image) => {
                     city:null,
                     district:null,
                     country:null
-
                 }
             }
         }))
-        setImageData(imageDataGeo);
+        const removeBackground = await Promise.all(imageDataGeo.map(async (obj)=>{
+            try {
+                const rbg = await handleRemoveBackground(obj.image, obj.name)
+                return {
+                  ...obj,
+                  nbg_image: rbg
+                }
+              } catch (error) {
+                console.log('error removing background')
+                console.error(error)
+                return {
+                  ...obj
+                }
+              }
+
+            }))
+        setImageData(removeBackground);
             
-      }
+    }
 
     useEffect(()=>{extractImages()},[files])
     useEffect(()=>{},[imageData])
