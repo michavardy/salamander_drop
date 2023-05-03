@@ -4,8 +4,9 @@ import {ImageContext} from './Upload'
 import ToolBar from './ToolBar'
 import {handleFetchImage} from './Upload'
 
+
 const ImageData = (props) => {
-    const { imageDataRef, selectedImageIndex, imageData, setImageData, metaData, setMetaData, pane } = useContext(ImageContext);
+    const { imageDataRef, selectedImageIndex, imageData, setImageData, metaData, setMetaData, pane, setFiles, imageSetData, setImageSetData } = useContext(ImageContext);
     function toDateTimeLocal(DateTime){
       const DateTimeArray = DateTime.replace(' ', ":").split(":")
       const Year = DateTimeArray[0]
@@ -111,20 +112,71 @@ const ImageData = (props) => {
       const thumbNailContainer= document.querySelector(`#thumbNailContainer_${selectedImageIndex}`);
 
       // Update the style of the thumbnailCard element to reflect the rejected status
-      thumbNailContainer.classList.remove('thumbNailCard_accepted')
       thumbNailContainer.classList.add('thumbNailCard_rejected')
+      thumbNailContainer.classList.remove('thumbNailContainer')
       
     }
 
     return (
-        selectedImageIndex>=0 && pane === 'imageData'? (
+        selectedImageIndex>0 ? (
             <div className="imageDataContainer" ref={imageDataRef}>
+              <div className="imageSetDataForm">
+                  <h2 className="imageDataFormTitle">Image Set Data</h2>
+                  <div className="imageDataFormContent">
+                  <div className="imageDataFormRow">
+                    <label className="imageDataFormLabel" htmlFor="name">Image Set Name:</label>
+                    <input 
+                      className="imageDataFormInput" 
+                      type="text" 
+                      id="name" 
+                      name="name" 
+                      value={imageSetData.imageSetName}
+                      onChange={(e)=>{
+                        setImageSetData(
+                          {...imageSetData, imageSetName:e.target.value}
+                        )
+                      }}
+                      />
+                </div>
+                <div className="imageDataFormRow">
+                    <label className="imageDataFormLabel" htmlFor="contributer">Contributer:</label>
+                    <input 
+                    className="imageDataFormInput" 
+                    type="text" 
+                    id="contributer" 
+                    name="contributer" 
+                    value={imageSetData.Contributer}
+                    onChange={(e)=>{
+                      setImageSetData(
+                        {...imageSetData, Contributer:e.target.value}
+                      )
+                    }}
+                    />
+                </div>
+                <div className="imageDataFormRow">
+                  <button className="imageDataFormButton">Submit</button>
+                  <button className="imageDataFormButton" onClick={()=>{setFiles(null)}}>Cancle</button>
+                  </div>
+                </div>
+              </div>
               <div className="imageDataForm">
                  <h2 className="imageDataFormTitle">Image Data</h2>
                  <div className="imageDataFormContent">
                 <div className="imageDataFormRow">
                     <label className="imageDataFormLabel" htmlFor="name">Name:</label>
-                    <input className="imageDataFormInput" type="text" id="name" name="name" value={imageData[selectedImageIndex].name} />
+                    <input 
+                    className="imageDataFormInput" 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    value={imageData[selectedImageIndex].name} 
+                    onChange={(e)=>{
+                      const imageObj = imageData[selectedImageIndex];
+                      const updatedImageObj = { ...imageObj, name: e.target.value };
+                      imageData[selectedImageIndex] = updatedImageObj;
+                      setImageData([...imageData]); 
+                    }}
+                    />
                 </div>
                 <div className="imageDataFormRow">
                     <label className="imageDataFormLabel" htmlFor="gps">GPS:</label>
@@ -134,13 +186,44 @@ const ImageData = (props) => {
                 </div>
                 <div className="imageDataFormRow">
                     <label className="imageDataFormLabel" htmlFor="datetime">Date/Time:</label>
-                    <input className="imageDataFormInput" type="datetime-local" id="datetime" name="datetime" value={imageData[selectedImageIndex].metadata ? 
+                    <input 
+                      className="imageDataFormInput"
+                      type="datetime-local" 
+                      id="datetime" 
+                      name="datetime" 
+                      value={imageData[selectedImageIndex].metadata ? 
                         toDateTimeLocal(imageData[selectedImageIndex].metadata.DateTime)
-                        : "not available"}  />
+                        : "not available"}
+                        onChange={(e) => {
+                          console.log('dateTime')
+                          console.log(toDateTimeLocal(imageData[selectedImageIndex].metadata.DateTime))
+                          const updatedImageData = [...imageData];
+                          updatedImageData[selectedImageIndex] = {
+                            ...updatedImageData[selectedImageIndex],
+                            metadata: {
+                              ...updatedImageData[selectedImageIndex].metadata,
+                              DateTime: toDateTimeLocal(e.target.value)
+                            }
+                          };
+                          setImageData(updatedImageData);
+                        }}
+                        />
                 </div>
                 <div className="imageDataFormRow">
                     <label className="imageDataFormLabel" htmlFor="contributer">Contributer:</label>
-                    <input className="imageDataFormInput" type="text" id="contributer" name="contributer" value={imageData[selectedImageIndex].Contributer} />
+                    <input 
+                      className="imageDataFormInput" 
+                      type="text" 
+                      id="contributer" 
+                      name="contributer" 
+                      value={imageData[selectedImageIndex].Contributer} 
+                      onChange={(e)=>{
+                        const imageObj = imageData[selectedImageIndex];
+                        const updatedImageObj = { ...imageObj, Contributer: e.target.value };
+                        imageData[selectedImageIndex] = updatedImageObj;
+                        setImageData([...imageData]); 
+                      }}
+                      />
                 </div>
               </div>
 
@@ -171,14 +254,8 @@ const ImageData = (props) => {
               : "not available"
             }
               </div>
-              <button >send image</button>
             </div>
           ) 
-      : pane === 'imageSetData' (
-        <div className="ImageDataContainer" ref={imageDataRef}>
-        <h3>imageSetForm</h3>
-      </div>
-      )
       : (
         <div className="ImageDataContainer" ref={imageDataRef}>
           <h3>no image selected</h3>

@@ -3,6 +3,8 @@ import React, {useState, useEffect, useContext} from 'react'
 import {ImageContext} from './Upload'
 import EXIF from 'exif-js';
 import GoogleMapReact from 'google-map-react';
+import { LinearProgress, Typography } from '@material-ui/core';
+
 
 
 const Thumbnail = ({ index, setSelectedImageIndex, image, name })=>{
@@ -19,20 +21,38 @@ const Thumbnail = ({ index, setSelectedImageIndex, image, name })=>{
 }
 
 const ImageArray = (props) => {
-    const { files, imageDataCollapsed, imageData, setImageData, setSelectedImageIndex, selectedImageIndex } = useContext(ImageContext);
+    const { stageMessage, progress, setStageMessage, setProgress, files, imageDataCollapsed, imageData, setImageData, setSelectedImageIndex, selectedImageIndex } = useContext(ImageContext);
+
 
     function renderGrid(){
         console.log("imageData")
         console.log(Object.values(imageData))
-
+        setStageMessage('Render Loaded Images')
+        
         return (
 
             <div className="imageGridContainer">
-              {Object.values(imageData).map((imageObj) => (
-                <Thumbnail key={imageObj.index} image={imageObj.image} name={imageObj.name} index={imageObj.index} setSelectedImageIndex={setSelectedImageIndex}/>
-              ))}
+              {Object.values(imageData).map((imageObj, index, arr) => {
+                setProgress(100*(index / arr.length));
+                return <Thumbnail 
+                    key={imageObj.index} 
+                    image={imageObj.image} 
+                    name={imageObj.name} 
+                    index={imageObj.index} 
+                    setSelectedImageIndex={setSelectedImageIndex}
+                    />
+              })}
             </div>
           );
+    }
+
+    function renderLoadingBar(){
+        return(
+            <div loadingBarContainer>
+                <LinearProgress value={progress}/>
+                <Typography variant="caption" color="textSecondary"> {stageMessage}</Typography>
+            </div>
+        )
     }
 
 
@@ -165,7 +185,7 @@ const extractMetadataFromBase64Image = (base64Image) => {
                 const rbg = await handleRemoveBackground(obj.image, obj.name)
                 return {
                   ...obj,
-                  nbg_image: rbg
+                  image: rbg
                 }
               } catch (error) {
                 console.log('error removing background')
@@ -191,7 +211,11 @@ const extractMetadataFromBase64Image = (base64Image) => {
             imageData ? (
                 renderGrid()
             )
-            : <h1>no images uploaded</h1>
+            : 
+            <div className="loadingImages"> 
+                <h1>no images uploaded</h1>
+                
+            </div>
             }
         </div>
     )}

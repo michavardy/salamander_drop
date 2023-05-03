@@ -1,6 +1,5 @@
 import ImageArray from './ImageArray'
 import ImageData from './ImageData'
-import ImageSetData from './ImageSetData'
 import {useState, createContext, useRef, useContext, useEffect} from 'react'
 
 import '../global.css'
@@ -9,15 +8,14 @@ export const ImageContext = createContext({});
 
 
 const CollapseButton = () => {
-    const { imageDataCollapsed, setImageDataCollapsed, imageDataRef, setPane } = useContext(ImageContext);
+    const { pane, imageDataCollapsed, setImageDataCollapsed, imageDataRef, setPane } = useContext(ImageContext);
     function CollapseImageData(){
-        setImageDataCollapsed(!imageDataCollapsed)
-        setImageDataCollapsed(false)        
+        setImageDataCollapsed(true)      
         setPane('imageData')
     }
     function CollapseImageSetData(){
       //setImageDataCollapsed(!imageDataCollapsed)
-      setImageDataCollapsed(false)
+      setImageDataCollapsed(true)
       setPane('imageSetData');
       imageDataRef.current.style.display = 'flex'
   }
@@ -29,6 +27,40 @@ const CollapseButton = () => {
             imageDataRef.current.style.display = 'flex';
         }
     },[imageDataCollapsed])
+    useEffect(()=>{
+      const imageDataForm = document.querySelector('.imageDataForm');
+      const imageDataImage = document.querySelector('.imageDataImage');
+      const imageDataImageManipulationButtons  = document.querySelector('.imageDataImageManipulationButtons');
+      const imageDataTimeStamp =  document.querySelector('.imageDataTimeStamp');
+      const imageSetDataForm = document.querySelector('.imageSetDataForm');
+
+      if (pane === "imageData") {
+        if (imageDataForm && imageDataImage && imageDataImageManipulationButtons && imageDataTimeStamp) {
+          imageDataForm.style.display = 'flex';
+          imageDataImage.style.display = 'flex';
+          imageDataImageManipulationButtons.style.display = 'flex';
+          imageDataTimeStamp.style.display = 'flex';
+        }
+
+        if (imageSetDataForm) {
+          imageSetDataForm.style.display = 'none';
+        }
+
+      } else if (pane === "imageSetData") {
+
+
+        if (imageDataForm && imageDataImage && imageDataImageManipulationButtons && imageDataTimeStamp) {
+          imageDataForm.style.display = 'none';
+          imageDataImage.style.display = 'none';
+          imageDataImageManipulationButtons.style.display = 'none';
+          imageDataTimeStamp.style.display = 'none';
+        }
+        const imageSetDataForm = document.querySelector('.imageSetDataForm');
+        if (imageSetDataForm) {
+          imageSetDataForm.style.display = 'flex';
+        }
+      }
+    },[pane])
     return(
         <div className="collapseButtonContainer">
             <button className="collapseButton" onClick={CollapseImageData}>Image Data</button>
@@ -73,6 +105,9 @@ const Upload = (props) => {
     const [selectedImageData, setSelectedImageData] = useState(null)
     const [metaData, setMetaData] = useState(null)
     const [pane, setPane] = useState('imageData')
+    const [stageMessage, setStageMessage] = useState('no images loaded')
+    const [progress, setProgress] = useState(0)
+    const [imageSetData, setImageSetData] = useState({imageSetName:"", Contributer:""})
     
     const ContextValue = {
         imageDataCollapsed:imageDataCollapsed,
@@ -89,7 +124,13 @@ const Upload = (props) => {
         metaData:metaData,
         setMetaData:setMetaData,
         setPane:setPane,
-        pane:pane
+        pane:pane,
+        progress:progress,
+        setProgress: setProgress,
+        stageMessage: stageMessage,
+        setStageMessage: setStageMessage,
+        imageSetData:imageSetData,
+        setImageSetData:setImageSetData
     }
 
     console.log('init context')
@@ -100,13 +141,7 @@ const Upload = (props) => {
             <ImageContext.Provider value={ContextValue}>
                 <ImageArray />
                 <CollapseButton/>
-                {pane === 'imageData'
-                ? <ImageData />
-                : null}
-                {pane==='imageSetData'
-                ? <ImageSetData/>
-                : null}
-                
+                <ImageData />
             </ImageContext.Provider>
         </div>
     )}
