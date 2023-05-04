@@ -18,6 +18,7 @@ from imageTransformation import ImageManipulate
 import click
 import os
 import uvicorn
+from typing import Any
 
 #uvicorn main:app --reload
 #logger = logging.getLogger("uvicorn.error")
@@ -34,6 +35,11 @@ class ImageData(BaseModel):
     image_name: str
     image_data: str
     action: str
+
+class DataSet(BaseModel):
+    imageData: Any
+    imageSetData: Any
+
     
 @app.post("/reduce_glare")
 async def reduce_glare(img: ImageData):
@@ -49,6 +55,13 @@ async def remove_background(img: ImageData):
 async def rotate_image(img: ImageData):
     base64_img = transform_image(img, 'rotate_image')
     return {"image": base64_img}
+
+@app.post("/submit")
+async def submit_data_set(dataSet: DataSet):
+    with open('test_recieved.txt', 'w') as f:
+        f.write(f"dataset name: {dataSet.imageSetData['imageSetName']}")
+
+    return {'message':"recieved"}
 
 
 def transform_image(img: ImageData, action: str) ->str:
