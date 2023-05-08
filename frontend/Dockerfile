@@ -6,6 +6,7 @@ RUN mkdir ./public
 RUN mkdir ./src
 RUN mkdir ./node_modules
 RUN mkdir ./src/images
+RUN mkdir /src/components
 RUN mkdir ./public/din_fonts
 
 # Copy babelrc
@@ -22,6 +23,9 @@ COPY ./src/* ./src/
 
 # copy images
 COPY ./src/images/* ./src/images
+
+# copy components
+COPY ./src/components/* ./src/components
 
 # copy fonts
 COPY ./public/din_fonts/* ./public/din_fonts

@@ -12,7 +12,8 @@ import cv2
 import io
 import sys
 from pathlib import Path
-sys.path.append(Path.cwd())
+sys.path.append('/app')
+from mongoClient import Mongo
 from imageTransformation import Image as IMG
 from imageTransformation import ImageManipulate
 import click
@@ -27,6 +28,8 @@ from typing import Any
 
 app = FastAPI()
 origins = ["*"]
+db_name = "imageDatabase"
+collection_name = "salamander_drop"
 
 
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"],allow_headers=["*"],)
@@ -58,9 +61,8 @@ async def rotate_image(img: ImageData):
 
 @app.post("/submit")
 async def submit_data_set(dataSet: DataSet):
-    with open('test_recieved.txt', 'w') as f:
-        f.write(f"dataset name: {dataSet.imageSetData['imageSetName']}")
-
+    mongo = Mongo(db_name, collection_name)
+    mongo.add_dataset(dataSet.imageData, dataSet.imageSetData)
     return {'message':"recieved"}
 
 
