@@ -118,7 +118,7 @@ const Upload = (props) => {
   const imageDataRef = useRef(null);
   const files = props.files || [];
   const setFiles = props.setFiles;
-  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedImageData, setSelectedImageData] = useState(null);
   const [metaData, setMetaData] = useState(null);
   const [pane, setPane] = useState("imageData");

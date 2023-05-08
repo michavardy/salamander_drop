@@ -14,11 +14,13 @@ class Mongo:
     def __init__(self, db_name:str, collection_name: str):
         self.db_name = db_name
         self.collection_name = collection_name
+        self.client= None
         self.db = None
         self.collection = None
         self.attach()
-        self.get_db()
-        self.get_collection()
+        if self.client:
+            self.get_db()
+            self.get_collection()
     def attach(self):
         try:
             self.client = MongoClient(os.environ['MONGO_URI'])

@@ -44,7 +44,7 @@ const RenderLoadingBar = ({ progress, stageMessage }) => {
   }
 
   return (
-    <div loadingBarContainer>
+    <div className="loadingBarContainer">
 
 <Box sx={{ width: "100%", mt: 2 }}>
         <LinearProgressWithLabel value={progress} sx={{ width: "100%" }} />
@@ -229,10 +229,11 @@ const ImageArray = (props) => {
         }
       })
     );
-    setProgress(40)
+    setProgress(0)
     setStageMessage('extracting image Geo Location')
     const imageDataGeo = await Promise.all(
-      imageDataDecimalGPS.map(async (obj) => {
+      imageDataDecimalGPS.map(async (obj, index, arr) => {
+        setProgress( Math.round(Number(100 * index / arr.length)))
         try {
           const Geo = await geoFetch(obj.latGPS, obj.longGPS);
           return {
@@ -253,10 +254,11 @@ const ImageArray = (props) => {
         }
       })
     );
-    setProgress(80)
+    setProgress(0)
     setStageMessage('removing background')
     const removeBackground = await Promise.all(
-      imageDataGeo.map(async (obj) => {
+      imageDataGeo.map(async (obj, index, arr) => {
+        setProgress(Math.round(Number(100 * index / arr.length)))
         try {
           const rbg = await handleRemoveBackground(obj.image, obj.name);
           return {

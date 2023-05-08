@@ -152,7 +152,7 @@ const ImageData = (props) => {
     thumbNailContainer.classList.remove("thumbNailContainer");
   }
 
-  return selectedImageIndex > 0 ? (
+  return selectedImageIndex >= 0 && imageData != null? (
     <div className="imageDataContainer" ref={imageDataRef}>
       <div className="imageSetDataForm">
         <h2 className="imageDataFormTitle">Image Set Data</h2>
