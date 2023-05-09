@@ -341,3 +341,7 @@
   background-color: var(--secondary-color);
   padding: 10px;
 }
+
+.commentContainer{
+  display:flex;
+}

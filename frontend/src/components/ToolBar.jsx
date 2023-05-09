@@ -27,7 +27,7 @@ const ToolBar = (props) => {
         path={"Comment"}
         scale={10}
         fill={"#f2f2f2"}
-        callBack={() => {}}
+        callBack={props.handleComment}
       />
       <SvgGenerator
         path={"Rejected"}

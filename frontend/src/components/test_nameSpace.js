@@ -1,13 +1,3 @@
-const a = 1
-const b = 2
-const c = 3
-const d = 4
-
-if (b > 3) {
-    console.log(`a is ${a}`)
-}
-else{
-    const d = 5
-    console.log(`c is ${c}`)
-    console.log(`d is ${d}`)
-}
+const arr1 = [1,5,7,9,12,3,9,5]
+function plus2(num){return num+2}
+arr1.map(async (x, index, arr)=>{console.log(Math.round(100*(index/arr.length)))})

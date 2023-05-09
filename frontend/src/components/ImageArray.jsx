@@ -7,13 +7,14 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const Thumbnail = ({ index, setSelectedImageIndex, image, name }) => {
+const Thumbnail = ({ index, setSelectedImageIndex, image, name, setShowComment }) => {
   return (
     <div className="thumbNailContainer" id={`thumbNailContainer_${index}`}>
       <div
         className="thumbnailCard"
         onClick={() => {
           setSelectedImageIndex(Number(index));
+          setShowComment(false)
         }}
       >
         <img
@@ -69,6 +70,8 @@ const ImageArray = (props) => {
     setImageData,
     setSelectedImageIndex,
     selectedImageIndex,
+    showComment,
+    setShowComment
   } = useContext(ImageContext);
   const [loading, setLoading] = useState(true);
 
@@ -98,6 +101,7 @@ const ImageArray = (props) => {
               name={imageObj.name}
               index={imageObj.index}
               setSelectedImageIndex={setSelectedImageIndex}
+              setShowComment={setShowComment}
             />
           );
         })}
@@ -178,18 +182,19 @@ const ImageArray = (props) => {
         return loadImages(file, index);
       })
     );
-    setProgress(20);
+    setProgress(0);
     setStageMessage('extracting image data')
     const imageDataObj = await Promise.allSettled(imageObj).then((result) => {
       const resolvedImageObj = result
         .filter((res) => res.status === "fulfilled")
         .map((res,index,arr) => {
-            setProgress(30)
+          setProgress( Math.round(100 * index / arr.length))
           const imageObj = res.value;
           const metadata = extractMetadataFromBase64Image(imageObj.image);
           return {
             ...imageObj,
             Contributer: "NA",
+            Comment:"",
             Rejected: false,
             metadata: metadata,
           };
@@ -197,7 +202,7 @@ const ImageArray = (props) => {
       //setImageData(resolvedImageObj);
       return resolvedImageObj;
     });
-    setProgress(30)
+    setProgress(0)
     setStageMessage('extracting image GPS')
     const imageDataDecimalGPS = await Promise.all(
       imageDataObj.map(async (obj,index,arr) => {
@@ -233,7 +238,7 @@ const ImageArray = (props) => {
     setStageMessage('extracting image Geo Location')
     const imageDataGeo = await Promise.all(
       imageDataDecimalGPS.map(async (obj, index, arr) => {
-        setProgress( Math.round(Number(100 * index / arr.length)))
+        setProgress( Math.round(100 * index / arr.length))
         try {
           const Geo = await geoFetch(obj.latGPS, obj.longGPS);
           return {
@@ -258,7 +263,7 @@ const ImageArray = (props) => {
     setStageMessage('removing background')
     const removeBackground = await Promise.all(
       imageDataGeo.map(async (obj, index, arr) => {
-        setProgress(Math.round(Number(100 * index / arr.length)))
+        setProgress(Math.round(100 * index / arr.length))
         try {
           const rbg = await handleRemoveBackground(obj.image, obj.name);
           return {
@@ -281,6 +286,10 @@ const ImageArray = (props) => {
   useEffect(() => {
     extractImages();
   }, [files]);
+  useEffect(()=>{
+    console.log('show comment');
+    console.log(showComment)
+  }, [showComment])
   useEffect(() => {}, [imageData]);
   useEffect(() => {
     console.log("selected image index");

@@ -116,6 +116,7 @@ const Upload = (props) => {
   const [imageDataCollapsed, setImageDataCollapsed] = useState(true);
   const [imageData, setImageData] = useState(null);
   const imageDataRef = useRef(null);
+  const commentRef = useRef(null);
   const files = props.files || [];
   const setFiles = props.setFiles;
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -124,6 +125,7 @@ const Upload = (props) => {
   const [pane, setPane] = useState("imageData");
   const [stageMessage, setStageMessage] = useState("no images loaded");
   const [progress, setProgress] = useState(0);
+  const [showComment, setShowComment] = useState(false);
   const [imageSetData, setImageSetData] = useState({
     imageSetName: "",
     Contributer: "",
@@ -151,6 +153,9 @@ const Upload = (props) => {
     setStageMessage: setStageMessage,
     imageSetData: imageSetData,
     setImageSetData: setImageSetData,
+    commentRef:commentRef,
+    showComment:showComment, 
+    setShowComment: setShowComment
   };
 
   console.log("init context");

@@ -7,6 +7,7 @@ import { handleFetchImage } from "./Upload";
 const ImageData = (props) => {
   const {
     imageDataRef,
+    commentRef,
     selectedImageIndex,
     imageData,
     setImageData,
@@ -16,6 +17,8 @@ const ImageData = (props) => {
     setFiles,
     imageSetData,
     setImageSetData,
+    setShowComment,
+    showComment
   } = useContext(ImageContext);
   function toDateTimeLocal(DateTime) {
     const DateTimeArray = DateTime.replace(" ", ":").split(":");
@@ -111,7 +114,22 @@ const ImageData = (props) => {
         console.log(error);
       });
   }
-
+  function handleComment(){
+      setShowComment(prevState => !prevState);
+    }
+    function handleCommentArea(e) {
+      const updatedImageData = imageData.map((imageObj, index) => {
+        if (index === selectedImageIndex) {
+          return {
+            ...imageObj,
+            Comment: e.target.value,
+          };
+        } else {
+          return imageObj;
+        }
+      });
+      setImageData(updatedImageData);
+    }
   function handleSubmit() {
     fetch("http://localhost:8000/submit", {
       method: "POST",
@@ -151,6 +169,7 @@ const ImageData = (props) => {
     thumbNailContainer.classList.add("thumbNailCard_rejected");
     thumbNailContainer.classList.remove("thumbNailContainer");
   }
+
 
   return selectedImageIndex >= 0 && imageData != null? (
     <div className="imageDataContainer" ref={imageDataRef}>
@@ -320,8 +339,19 @@ const ImageData = (props) => {
             handleReduceGlare={handleReduceGlare}
             handleRejected={handleRejected}
             handleRotate={handleRotate}
+            handleComment={handleComment}
           />
         </div>
+        {
+          showComment ? (  
+          <div className="commentContainer">
+          <textarea id="commentArea" name="commentArea" rows="4"  onChange={handleCommentArea} >
+            {imageData[selectedImageIndex].Comment}
+          </textarea>
+          </div>
+          )
+          :null
+        }
       </div>
       <div className="imageDataTimeStamp">
         <div style={{ fontSize: "50px", color: "var(--text-color)" }}>
