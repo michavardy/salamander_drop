@@ -13,9 +13,9 @@ import io
 import sys
 from pathlib import Path
 sys.path.append('/app')
-from mongoClient import Mongo
-from imageTransformation import Image as IMG
-from imageTransformation import ImageManipulate
+from .mongoClient import Mongo
+from .imageTransformation import Image as IMG
+from .imageTransformation import ImageManipulate
 import click
 import os
 import uvicorn

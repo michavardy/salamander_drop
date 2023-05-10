@@ -1,0 +1,13 @@
+2023-05-08 05:54:42,358 - logger_setup - ERROR - failed to connect to logger client error: 'MONGO_URI'
+2023-05-08 05:58:55,393 - logger_setup - ERROR - failed to connect to logger client error: 'MONGO_URI'
+2023-05-08 05:58:55,401 - logger_setup - INFO - insert data entry: {'imageSetName': 'set1', 'Contributer': 'micha'}
+2023-05-08 05:58:55,401 - logger_setup - ERROR - failed to insert data_entry into collection error: 'NoneType' object has no attribute 'insert_one'
+2023-05-08 06:16:21,201 - logger_setup - ERROR - failed to connect to logger client error: 'MONGO_URI'
+2023-05-08 06:16:21,207 - logger_setup - INFO - insert data entry: {'imageSetName': 'dataset1', 'Contributer': 'micha'}
+2023-05-08 06:16:21,210 - logger_setup - ERROR - failed to insert data_entry into collection error: 'NoneType' object has no attribute 'insert_one'
+2023-05-10 19:24:28,901 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-05-10 19:27:34,554 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-05-10 19:27:34,559 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-05-10 19:27:34,623 - logger_setup - DEBUG - logger collection loaded: salamander_drop
+2023-05-10 19:27:34,624 - logger_setup - INFO - insert data entry: {}
+2023-05-10 19:27:34,626 - logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7f49f3db7940>

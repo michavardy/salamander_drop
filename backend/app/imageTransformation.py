@@ -10,16 +10,13 @@ import numpy as np
 from typing import List
 from tqdm import tqdm
 from rembg import remove
-
-CWD = Path.cwd()
-sys.path.append(CWD)
-from ShadowHighlighCorrection import correction
+from .ShadowHighlighCorrection import correction
+from .logger_setup import logger
 
 INPUT = CWD.stem
 OUTPUT = f'{INPUT}_out'
 OUTPUT_DIR = CWD.parent / OUTPUT
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+
 
 """
     for testing

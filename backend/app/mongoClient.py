@@ -3,9 +3,7 @@ from pathlib import Path
 import os
 from datetime import datetime
 import logging
-import sys
-sys.path.append(Path.cwd())
-from logger_setup import logger
+from .logger_setup import logger
 
 #db_name = imageDatabase
 #collection_name = salamander_drop
@@ -29,8 +27,7 @@ class Mongo:
             logger.error(f'failed to connect to logger client error: {e}')
     def get_db(self):
         if self.db_name not in self.client.list_database_names():
-            self.client.admin.command("createDatabase", self.db_name)
-        self.db = self.client[self.db_name]
+            self.db = self.client[self.db_name]
         logger.debug(f'logger database loaded: {self.db_name}')
     def get_collection(self):
         if self.collection_name not in self.db.list_collection_names():
