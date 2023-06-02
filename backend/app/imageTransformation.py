@@ -13,6 +13,7 @@ from rembg import remove
 from .ShadowHighlighCorrection import correction
 from .logger_setup import logger
 
+CWD = Path.cwd()
 INPUT = CWD.stem
 OUTPUT = f'{INPUT}_out'
 OUTPUT_DIR = CWD.parent / OUTPUT

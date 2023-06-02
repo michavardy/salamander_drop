@@ -88,7 +88,7 @@ const CollapseButton = () => {
 };
 
 export function handleFetchImage(img, img_name, action) {
-  fetch(`http://localhost:8000/${action}`, {
+  fetch(`http://backend:8000/${action}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

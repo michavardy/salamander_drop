@@ -5,6 +5,8 @@ services:
     build: ./frontend
     ports:
       - "3000:3000"
+    networks:
+      - salamander
     volumes:
       - ./frontend:/app
     depends_on:
@@ -13,6 +15,8 @@ services:
     build: ./backend
     ports:
       - "8000:8000"
+    networks:
+      - salamander
     volumes:
       - ./backend:/app
     environment:
@@ -25,3 +29,7 @@ services:
       - "27017:27017"
     volumes:
       - ./data:/data/db
+    networks:
+      - salamander
+  networks:
+    salamander:

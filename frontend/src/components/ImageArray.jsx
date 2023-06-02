@@ -161,7 +161,7 @@ const ImageArray = (props) => {
   }
 
   async function handleRemoveBackground(image, name) {
-    const response = await fetch("http://localhost:8000/remove_background", {
+    const response = await fetch("http://backend:8000/remove_background", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

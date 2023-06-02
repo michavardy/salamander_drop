@@ -22,13 +22,13 @@ COPY ./public/* ./public/
 COPY ./src/* ./src/
 
 # copy images
-COPY ./src/images/* ./src/images
+COPY ./src/images/* ./src/images/
 
 # copy components
-COPY ./src/components/* ./src/components
+COPY ./src/components/* ./src/components/
 
 # copy fonts
-COPY ./public/din_fonts/* ./public/din_fonts
+COPY ./public/din_fonts/* ./public/din_fonts/
 
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./

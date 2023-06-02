@@ -31,7 +31,7 @@ const ImageData = (props) => {
   }
 
   function handleRotate() {
-    fetch("http://localhost:8000/rotate_image", {
+    fetch("http://backend:8000/rotate_image", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const ImageData = (props) => {
       });
   }
   function handleReduceGlare() {
-    fetch("http://localhost:8000/reduce_glare", {
+    fetch("http://backend:8000/reduce_glare", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +131,7 @@ const ImageData = (props) => {
       setImageData(updatedImageData);
     }
   function handleSubmit() {
-    fetch("http://localhost:8000/submit", {
+    fetch("http://backend:8000/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
