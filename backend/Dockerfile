@@ -2,7 +2,8 @@
 FROM python:3.9-slim-buster
 # update and get some applications required for cv2
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
-
+# update pip
+RUN python -m pip install --upgrade pip
 # Copy directory structure
 COPY . /
 

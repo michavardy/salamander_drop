@@ -27,7 +27,11 @@ from typing import Any
 #logger.info('starting app', process_id)
 
 app = FastAPI()
-origins = ["*"]
+origins = [
+        "*",
+        "http://frontend:3000",
+        "http://backend:8000"
+        ]
 db_name = "imageDatabase"
 collection_name = "salamander_drop"
 
@@ -43,7 +47,10 @@ class DataSet(BaseModel):
     imageData: Any
     imageSetData: Any
 
-    
+@app.get("/")
+async def sayHello():
+    return "hello-world"
+
 @app.post("/reduce_glare")
 async def reduce_glare(img: ImageData):
     base64_img = transform_image(img, 'reduce_glare')

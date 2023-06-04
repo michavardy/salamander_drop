@@ -27,7 +27,7 @@ def correction(
 
     # extract RGB channel
     height, width = img.shape[:2]
-    img = img.astype(np.float)
+    img = img.astype(float)
     img_R, img_G, img_B = img[..., 2].reshape(-1), img[..., 1].reshape(-1), img[..., 0].reshape(-1)
 
     # The entire correction process is carried out in YUV space,

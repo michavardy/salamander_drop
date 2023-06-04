@@ -1,0 +1,41 @@
+2023-06-03 19:39:35,815 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:39:35,815 - app.logger_setup - INFO - remove_background
+2023-06-03 19:40:29,555 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:40:29,555 - app.logger_setup - INFO - remove_background
+2023-06-03 19:42:41,995 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:42:41,995 - app.logger_setup - INFO - remove_background
+2023-06-03 19:43:42,719 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:43:42,720 - app.logger_setup - INFO - remove_background
+2023-06-03 19:43:43,825 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:43:43,825 - app.logger_setup - INFO - remove_background
+2023-06-03 19:43:44,891 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:43:44,891 - app.logger_setup - INFO - remove_background
+2023-06-03 19:43:46,011 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:43:46,011 - app.logger_setup - INFO - remove_background
+2023-06-03 19:43:48,135 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:43:48,135 - app.logger_setup - INFO - remove_background
+2023-06-03 19:43:50,481 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:43:50,481 - app.logger_setup - INFO - remove_background
+2023-06-03 19:44:10,666 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-03 19:44:10,666 - app.logger_setup - INFO - reduce_glare
+2023-06-03 19:57:28,534 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:57:28,534 - app.logger_setup - INFO - remove_background
+2023-06-03 19:58:18,420 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:58:18,420 - app.logger_setup - INFO - remove_background
+2023-06-03 19:58:19,545 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:58:19,546 - app.logger_setup - INFO - remove_background
+2023-06-03 19:58:20,680 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:58:20,680 - app.logger_setup - INFO - remove_background
+2023-06-03 19:58:22,101 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:58:22,101 - app.logger_setup - INFO - remove_background
+2023-06-03 19:58:24,825 - app.logger_setup - INFO - show actions: ['remove_background']
+2023-06-03 19:58:24,825 - app.logger_setup - INFO - remove_background
+2023-06-03 19:58:54,899 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-03 19:58:54,899 - app.logger_setup - INFO - reduce_glare
+2023-06-03 19:59:03,664 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-03 19:59:03,665 - app.logger_setup - INFO - rotate_image
+2023-06-03 19:59:23,703 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-03 19:59:23,708 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-03 19:59:23,718 - app.logger_setup - DEBUG - logger collection loaded: salamander_drop
+2023-06-03 19:59:23,718 - app.logger_setup - INFO - insert data entry: {'imageSetName': 'sample_dataset', 'Contributer': 'micha'}
+2023-06-03 19:59:23,739 - app.logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7fa39016a100>

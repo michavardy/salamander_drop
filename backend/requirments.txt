@@ -9,4 +9,5 @@ numpy
 opencv-python==4.5.5.64
 opencv-python-headless==4.7.0.72
 tqdm
+tifffile==2022.8.12
 rembg==2.0.32

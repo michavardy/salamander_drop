@@ -2,7 +2,6 @@ import "../global.css";
 import { useContext, useEffect, useRef } from "react";
 import { ImageContext } from "./Upload";
 import ToolBar from "./ToolBar";
-import { handleFetchImage } from "./Upload";
 
 const ImageData = (props) => {
   const {
@@ -18,7 +17,8 @@ const ImageData = (props) => {
     imageSetData,
     setImageSetData,
     setShowComment,
-    showComment
+    showComment,
+    ipAdress
   } = useContext(ImageContext);
   function toDateTimeLocal(DateTime) {
     const DateTimeArray = DateTime.replace(" ", ":").split(":");
@@ -31,7 +31,7 @@ const ImageData = (props) => {
   }
 
   function handleRotate() {
-    fetch("http://backend:8000/rotate_image", {
+    fetch(`http://${ipAdress}:8000/rotate_image`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const ImageData = (props) => {
       });
   }
   function handleReduceGlare() {
-    fetch("http://backend:8000/reduce_glare", {
+    fetch(`http://${ipAdress}:8000/reduce_glare`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +131,7 @@ const ImageData = (props) => {
       setImageData(updatedImageData);
     }
   function handleSubmit() {
-    fetch("http://backend:8000/submit", {
+    fetch(`http://${ipAdress}:8000/submit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -31,5 +31,5 @@ services:
       - ./data:/data/db
     networks:
       - salamander
-  networks:
-    salamander:
+networks:
+  salamander:

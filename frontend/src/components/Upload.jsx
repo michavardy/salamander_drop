@@ -87,89 +87,67 @@ const CollapseButton = () => {
   );
 };
 
-export function handleFetchImage(img, img_name, action) {
-  fetch(`http://backend:8000/${action}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      image_name: img_name,
-      image_data: img,
-      action: action,
-    }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log(`${action} transformation image recieved`);
-        return response.json();
-      } else {
-        console.log("Error translating image");
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
 
 const Upload = (props) => {
-  const [imageDataCollapsed, setImageDataCollapsed] = useState(true);
-  const [imageData, setImageData] = useState(null);
-  const imageDataRef = useRef(null);
-  const commentRef = useRef(null);
-  const files = props.files || [];
-  const setFiles = props.setFiles;
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [selectedImageData, setSelectedImageData] = useState(null);
-  const [metaData, setMetaData] = useState(null);
-  const [pane, setPane] = useState("imageData");
-  const [stageMessage, setStageMessage] = useState("no images loaded");
-  const [progress, setProgress] = useState(0);
-  const [showComment, setShowComment] = useState(false);
-  const [imageSetData, setImageSetData] = useState({
-    imageSetName: "",
-    Contributer: "",
-  });
+const [imageDataCollapsed, setImageDataCollapsed] = useState(true);
+const [imageData, setImageData] = useState(null);
+const imageDataRef = useRef(null);
+const commentRef = useRef(null);
+const files = props.files || [];
+const setFiles = props.setFiles;
+const ipAdress = props.ipAdress;
+const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+const [selectedImageData, setSelectedImageData] = useState(null);
+const [metaData, setMetaData] = useState(null);
+const [pane, setPane] = useState("imageData");
+const [stageMessage, setStageMessage] = useState("no images loaded");
+const [progress, setProgress] = useState(0);
+const [showComment, setShowComment] = useState(false);
+const [imageSetData, setImageSetData] = useState({
+  imageSetName: "",
+  Contributer: "",
+});
 
-  const ContextValue = {
-    imageDataCollapsed: imageDataCollapsed,
-    setImageDataCollapsed: setImageDataCollapsed,
-    imageDataRef: imageDataRef,
-    imageData: imageData,
-    setImageData: setImageData,
-    files: files,
-    setFiles: setFiles,
-    selectedImageData: selectedImageData,
-    setSelectedImageData: setSelectedImageData,
-    selectedImageIndex: selectedImageIndex,
-    setSelectedImageIndex: setSelectedImageIndex,
-    metaData: metaData,
-    setMetaData: setMetaData,
-    setPane: setPane,
-    pane: pane,
-    progress: progress,
-    setProgress: setProgress,
-    stageMessage: stageMessage,
-    setStageMessage: setStageMessage,
-    imageSetData: imageSetData,
-    setImageSetData: setImageSetData,
-    commentRef:commentRef,
-    showComment:showComment, 
-    setShowComment: setShowComment
-  };
+const ContextValue = {
+  imageDataCollapsed: imageDataCollapsed,
+  setImageDataCollapsed: setImageDataCollapsed,
+  imageDataRef: imageDataRef,
+  imageData: imageData,
+  setImageData: setImageData,
+  files: files,
+  setFiles: setFiles,
+  ipAdress: ipAdress,
+  selectedImageData: selectedImageData,
+  setSelectedImageData: setSelectedImageData,
+  selectedImageIndex: selectedImageIndex,
+  setSelectedImageIndex: setSelectedImageIndex,
+  metaData: metaData,
+  setMetaData: setMetaData,
+  setPane: setPane,
+  pane: pane,
+  progress: progress,
+  setProgress: setProgress,
+  stageMessage: stageMessage,
+  setStageMessage: setStageMessage,
+  imageSetData: imageSetData,
+  setImageSetData: setImageSetData,
+  commentRef: commentRef,
+  showComment: showComment,
+  setShowComment: setShowComment
+};
 
-  console.log("init context");
-  console.log(ContextValue);
+console.log("init context");
+console.log(ContextValue);
 
-  return (
-    <div className="uploadContainer">
-      <ImageContext.Provider value={ContextValue}>
-        <ImageArray />
-        <CollapseButton />
-        <ImageData />
-      </ImageContext.Provider>
-    </div>
-  );
+return (
+  <div className="uploadContainer">
+    <ImageContext.Provider value={ContextValue}>
+      <ImageArray />
+      <CollapseButton />
+      <ImageData />
+    </ImageContext.Provider>
+  </div>
+);
 };
 
 export default Upload;

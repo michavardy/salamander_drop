@@ -71,7 +71,8 @@ const ImageArray = (props) => {
     setSelectedImageIndex,
     selectedImageIndex,
     showComment,
-    setShowComment
+    setShowComment,
+    ipAdress
   } = useContext(ImageContext);
   const [loading, setLoading] = useState(true);
 
@@ -161,7 +162,7 @@ const ImageArray = (props) => {
   }
 
   async function handleRemoveBackground(image, name) {
-    const response = await fetch("http://backend:8000/remove_background", {
+    const response = await fetch(`http://${ipAdress}:8000/remove_background`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

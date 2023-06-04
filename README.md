@@ -121,6 +121,11 @@ Note: Currently only the researcher submission workflow is in active development
 ```
 docker-compose up           ## to start up docker-compose
 docker-compose down         ## to take down docker-compose
+mongosh                     ## access mongo shell in mongo container
+show dbs                    ## show all mongo databases
+use <db-name>               ## use database
+show collections            ## show all collections
+db.<collection_name>.find() ## show all data in collection
 ```
 # useful VS code extension for dockers
 ```
