@@ -12,6 +12,8 @@ from tqdm import tqdm
 from rembg import remove
 from .ShadowHighlighCorrection import correction
 from .logger_setup import logger
+#from ShadowHighlighCorrection import correction
+#from logger_setup import logger
 
 CWD = Path.cwd()
 INPUT = CWD.stem

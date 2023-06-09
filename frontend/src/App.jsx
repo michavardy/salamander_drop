@@ -7,7 +7,7 @@ const App = () => {
   const checkIpAdress = () => {
     // Check if inside or outside the network
     if (window.location.hostname === 'localhost' || window.location.hostname === '192.168.0.103') {
-      setIpAdress('192.168.0.103'); // Internal IP address
+      setIpAdress('localhost'); // Internal IP address
     } else {
       setIpAdress('213.57.120.114'); // External IP address
     }

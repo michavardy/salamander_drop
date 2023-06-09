@@ -11,3 +11,81 @@
 2023-05-10 19:27:34,623 - logger_setup - DEBUG - logger collection loaded: salamander_drop
 2023-05-10 19:27:34,624 - logger_setup - INFO - insert data entry: {}
 2023-05-10 19:27:34,626 - logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7f49f3db7940>
+2023-06-08 08:58:17,048 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 08:58:17,049 - logger_setup - INFO - remove_background
+2023-06-08 08:58:19,708 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 08:58:19,709 - logger_setup - INFO - remove_background
+2023-06-08 08:58:22,355 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 08:58:22,355 - logger_setup - INFO - remove_background
+2023-06-08 08:58:54,631 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 08:58:54,632 - logger_setup - INFO - remove_background
+2023-06-08 08:58:57,124 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 08:58:57,125 - logger_setup - INFO - remove_background
+2023-06-08 08:58:59,840 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 08:58:59,841 - logger_setup - INFO - remove_background
+2023-06-08 09:37:51,503 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:37:51,503 - logger_setup - INFO - remove_background
+2023-06-08 09:37:53,039 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:37:53,040 - logger_setup - INFO - remove_background
+2023-06-08 09:37:54,705 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:37:54,706 - logger_setup - INFO - remove_background
+2023-06-08 09:38:16,503 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:16,504 - logger_setup - INFO - remove_background
+2023-06-08 09:38:18,001 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:18,001 - logger_setup - INFO - remove_background
+2023-06-08 09:38:19,614 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:19,614 - logger_setup - INFO - remove_background
+2023-06-08 09:38:21,511 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:21,512 - logger_setup - INFO - remove_background
+2023-06-08 09:38:38,914 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:38,915 - logger_setup - INFO - remove_background
+2023-06-08 09:38:40,444 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:40,444 - logger_setup - INFO - remove_background
+2023-06-08 09:38:41,854 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:41,855 - logger_setup - INFO - remove_background
+2023-06-08 09:38:43,224 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:43,225 - logger_setup - INFO - remove_background
+2023-06-08 09:38:44,711 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:44,712 - logger_setup - INFO - remove_background
+2023-06-08 09:38:46,288 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:46,289 - logger_setup - INFO - remove_background
+2023-06-08 09:38:48,125 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 09:38:48,126 - logger_setup - INFO - remove_background
+2023-06-08 09:42:04,862 - logger_setup - INFO - show actions: ['rotate_image']
+2023-06-08 09:42:04,862 - logger_setup - INFO - rotate_image
+2023-06-08 09:42:06,006 - logger_setup - INFO - show actions: ['rotate_image']
+2023-06-08 09:42:06,007 - logger_setup - INFO - rotate_image
+2023-06-08 09:42:06,744 - logger_setup - INFO - show actions: ['rotate_image']
+2023-06-08 09:42:06,745 - logger_setup - INFO - rotate_image
+2023-06-08 09:45:26,963 - logger_setup - INFO - show actions: ['rotate_image']
+2023-06-08 09:45:26,965 - logger_setup - INFO - rotate_image
+2023-06-08 12:15:25,393 - logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-08 12:15:25,395 - logger_setup - INFO - reduce_glare
+2023-06-08 12:22:03,391 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:03,393 - logger_setup - INFO - remove_background
+2023-06-08 12:22:07,604 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:07,605 - logger_setup - INFO - remove_background
+2023-06-08 12:22:10,479 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:10,480 - logger_setup - INFO - remove_background
+2023-06-08 12:22:14,353 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:14,355 - logger_setup - INFO - remove_background
+2023-06-08 12:22:18,409 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:18,410 - logger_setup - INFO - remove_background
+2023-06-08 12:22:21,489 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:21,490 - logger_setup - INFO - remove_background
+2023-06-08 12:22:24,283 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:24,284 - logger_setup - INFO - remove_background
+2023-06-08 12:22:27,079 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:27,080 - logger_setup - INFO - remove_background
+2023-06-08 12:22:29,906 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:29,907 - logger_setup - INFO - remove_background
+2023-06-08 12:22:32,628 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:32,630 - logger_setup - INFO - remove_background
+2023-06-08 12:22:35,614 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:35,615 - logger_setup - INFO - remove_background
+2023-06-08 12:22:38,901 - logger_setup - INFO - show actions: ['remove_background']
+2023-06-08 12:22:38,902 - logger_setup - INFO - remove_background
+2023-06-08 12:23:27,491 - logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-08 12:23:27,492 - logger_setup - INFO - reduce_glare
+2023-06-08 12:42:46,310 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 12:42:46,315 - logger_setup - DEBUG - logger database loaded: imageDatabase

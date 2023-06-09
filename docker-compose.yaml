@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   frontend:
@@ -19,17 +19,25 @@ services:
       - salamander
     volumes:
       - ./backend:/app
+      - ./backend/logs.log:/app/logs.log
     environment:
-      - MONGO_URI=mongodb://mongo:27017/mydatabase
+      #- MONGO_URI=mongodb://admin:pass@mongo:27017/imageDatabase
+      - MONGO_URI=mongodb://mongo:27017/imageDatabase
     depends_on:
       - mongo
   mongo:
+    container_name: mongo
     image: mongo
+    restart: always
     ports:
       - "27017:27017"
+    #environment:
+    #  - MONGO_INITDB_ROOT_USERNAME=admin
+    #  - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
-      - ./data:/data/db
+      - ./data:/data/db/
     networks:
       - salamander
 networks:
   salamander:
+    driver: bridge

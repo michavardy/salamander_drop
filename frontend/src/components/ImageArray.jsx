@@ -75,6 +75,19 @@ const ImageArray = (props) => {
     ipAdress
   } = useContext(ImageContext);
   const [loading, setLoading] = useState(true);
+  const [responseCount, setResponseCount] = useState(0);
+  const totalRequests = files.length;
+
+  useEffect(() => {
+    if (responseCount === totalRequests) {
+      setLoading(false);
+    }
+  }, [responseCount, totalRequests]);
+
+  useEffect(() => {
+    setProgress((responseCount / totalRequests) * 100);
+  }, [responseCount, totalRequests]);
+
 
   function render() {
     if (loading) {
@@ -174,6 +187,7 @@ const ImageArray = (props) => {
       }),
     });
     const json = await response.json();
+    setResponseCount((prevCount) => prevCount + 1);
     return json.image;
   }
 
@@ -200,7 +214,7 @@ const ImageArray = (props) => {
             metadata: metadata,
           };
         });
-      //setImageData(resolvedImageObj);
+      setImageData(resolvedImageObj);
       return resolvedImageObj;
     });
     setProgress(0)
@@ -260,27 +274,27 @@ const ImageArray = (props) => {
         }
       })
     );
-    setProgress(0)
-    setStageMessage('removing background')
-    const removeBackground = await Promise.all(
-      imageDataGeo.map(async (obj, index, arr) => {
-        setProgress(Math.round(100 * index / arr.length))
-        try {
-          const rbg = await handleRemoveBackground(obj.image, obj.name);
-          return {
-            ...obj,
-            image: rbg,
-          };
-        } catch (error) {
-          console.log("error removing background");
-          console.error(error);
-          return {
-            ...obj,
-          };
-        }
-      })
-    );
-    setImageData(removeBackground);
+    //setProgress(0)
+    //setStageMessage('removing background')
+    //const removeBackground = await Promise.all(
+    //  imageDataGeo.map(async (obj, index, arr) => {
+    //    setProgress(Math.round(100 * index / arr.length))
+    //    try {
+    //      const rbg = await handleRemoveBackground(obj.image, obj.name);
+    //      return {
+    //        ...obj,
+    //        image: rbg,
+    //      };
+    //    } catch (error) {
+    //      console.log("error removing background");
+    //      console.error(error);
+    //      return {
+    //        ...obj,
+    //      };
+    //    }
+    //  })
+    //);
+    //setImageData(removeBackground);
     setLoading(false);
   }
 

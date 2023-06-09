@@ -39,3 +39,62 @@
 2023-06-03 19:59:23,718 - app.logger_setup - DEBUG - logger collection loaded: salamander_drop
 2023-06-03 19:59:23,718 - app.logger_setup - INFO - insert data entry: {'imageSetName': 'sample_dataset', 'Contributer': 'micha'}
 2023-06-03 19:59:23,739 - app.logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7fa39016a100>
+2023-06-08 11:45:00,224 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 11:45:00,228 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-08 11:49:02,713 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-08 11:49:02,713 - app.logger_setup - INFO - reduce_glare
+2023-06-08 11:49:11,176 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 11:49:11,182 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-08 12:09:39,454 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-08 12:09:39,454 - app.logger_setup - INFO - reduce_glare
+2023-06-08 12:49:28,562 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 12:49:40,564 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-08 12:52:36,832 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 12:52:36,852 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-08 12:56:13,390 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 12:56:13,391 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-08 12:56:13,396 - logger_setup - DEBUG - logger collection loaded: salamander_drop
+2023-06-08 12:56:13,397 - logger_setup - INFO - insert data entry: {}
+2023-06-08 12:56:13,423 - logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7f29e8d320c0>
+2023-06-08 13:04:00,101 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 13:04:00,102 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-08 13:04:00,106 - app.logger_setup - DEBUG - logger collection loaded: salamander_drop
+2023-06-08 13:04:00,108 - app.logger_setup - INFO - insert data entry: {'imageSetName': 'test', 'Contributer': 'micha'}
+2023-06-08 13:04:00,205 - app.logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7f3165ab7500>
+2023-06-08 13:09:49,730 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 13:09:49,730 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-08 13:09:49,735 - app.logger_setup - DEBUG - logger collection loaded: salamander_drop
+2023-06-08 13:09:49,736 - app.logger_setup - INFO - insert data entry: {'imageSetName': 'test_dataset', 'Contributer': 'micha'}
+2023-06-08 13:09:49,910 - app.logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7f480a0a9cc0>
+2023-06-08 16:40:13,976 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-08 16:40:13,976 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:03:35,345 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:03:35,345 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:07:39,322 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:07:39,325 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:09:48,213 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:10:14,586 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:10:46,061 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:10:46,073 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:13:49,501 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:13:49,503 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:24:10,109 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:24:10,111 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:24:26,738 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:24:26,740 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:25:14,251 - logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:25:14,257 - logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:34:29,095 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-09 08:34:29,096 - app.logger_setup - INFO - reduce_glare
+2023-06-09 08:34:35,780 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:34:35,781 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 08:58:13,315 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 08:58:13,316 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 09:03:00,360 - app.logger_setup - ERROR - failed to connect to logger client error: Invalid URI scheme: URI must begin with 'mongodb://' or 'mongodb+srv://'
+2023-06-09 09:03:00,361 - app.logger_setup - ERROR - couldnt connect to database error: 'NoneType' object is not subscriptable
+2023-06-09 09:21:42,641 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://mongo:27017/mydatabase
+2023-06-09 09:21:42,642 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 09:25:40,846 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://admin:pass@mongo:27017/mydatabase
+2023-06-09 09:25:40,847 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-09 09:25:49,083 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://admin:pass@mongo:27017/mydatabase
+2023-06-09 09:25:49,083 - app.logger_setup - DEBUG - logger database loaded: imageDatabase

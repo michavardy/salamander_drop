@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import logging
 from .logger_setup import logger
-
+#from logger_setup import logger
 #db_name = imageDatabase
 #collection_name = salamander_drop
 
@@ -15,26 +15,43 @@ class Mongo:
         self.client= None
         self.db = None
         self.collection = None
-        self.attach()
-        if self.client:
-            self.get_db()
-            self.get_collection()
-    def attach(self):
+
+        self.get_collection()
+
+    
+    def attach_to_client(self):
         try:
             self.client = MongoClient(os.environ['MONGO_URI'])
             logger.debug(f'successfully connected to logger client at {os.environ["MONGO_URI"]}')
         except Exception as e:
             logger.error(f'failed to connect to logger client error: {e}')
     def get_db(self):
-        if self.db_name not in self.client.list_database_names():
+        try:
             self.db = self.client[self.db_name]
-        logger.debug(f'logger database loaded: {self.db_name}')
+            logger.debug(f'logger database loaded: {self.db_name}')
+        except Exception as e:
+            logger.error(f'couldnt connect to database error: {e}')
+        #if self.db_name not in self.client.list_database_names():
+        #    self.db = self.client[self.db_name]
+        
+    
+    def attach(func):
+        def wrapper(self, *args, **kwargs):
+            if self.db is None:
+                self.attach_to_client()
+                self.get_db()
+            return func(self, *args, **kwargs)
+        return wrapper
+     
+    @attach
     def get_collection(self):
         if self.collection_name not in self.db.list_collection_names():
             self.collection = self.db.create_collection(self.collection_name)
         else:
             self.collection = self.db[self.collection_name]
         logger.debug(f'logger collection loaded: {self.collection_name}')
+    
+    @attach
     def add_dataset(self, imageData: dict, imageSetData: dict):
         # compile data entry
         data_entry = {
