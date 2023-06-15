@@ -1,4 +1,6 @@
-version: '3.8'
+version: '3.1'
+
+## the idea is to get backend working with mongodb credentials, so that I can use mongo-express
 
 services:
   frontend:
@@ -21,8 +23,13 @@ services:
       - ./backend:/app
       - ./backend/logs.log:/app/logs.log
     environment:
-      #- MONGO_URI=mongodb://admin:pass@mongo:27017/imageDatabase
-      - MONGO_URI=mongodb://mongo:27017/imageDatabase
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=pass
+      - MONGO_AUTH_SOURCE=admin
+      - MONGO_SERVICE_NAME=mongo
+      - MONGO_PORT=27017
+      - DATABASE_NAME=imageDatabase
+      - MONGO_URI=mongodb://admin:pass@mongo:27017/imageDatabase
     depends_on:
       - mongo
   mongo:
@@ -32,12 +39,29 @@ services:
     ports:
       - "27017:27017"
     #environment:
+    #  - MONGO_INITDB_DATABASE=imageDatabase
     #  - MONGO_INITDB_ROOT_USERNAME=admin
     #  - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
       - ./data:/data/db/
     networks:
       - salamander
+    #command: mongod
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+    networks:
+      - salamander
+      
 networks:
   salamander:
     driver: bridge

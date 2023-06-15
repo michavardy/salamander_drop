@@ -21,7 +21,16 @@ class Mongo:
     
     def attach_to_client(self):
         try:
-            self.client = MongoClient(os.environ['MONGO_URI'])
+            mongo_uri = os.environ['MONGO_URI']
+            username = os.environ['MONGO_USERNAME']
+            password = os.environ['MONGO_PASSWORD']
+            service = os.environ["MONGO_SERVICE_NAME"]
+            port = os.environ["MONGO_PORT"]
+            db_name = os.environ["DATABASE_NAME"]
+
+            uri = f'mongodb://{username}:{password}@{service}:{port}/{db_name}'
+            self.client = MongoClient(uri)
+            #self.client = MongoClient(os.environ['MONGO_URI'])
             logger.debug(f'successfully connected to logger client at {os.environ["MONGO_URI"]}')
         except Exception as e:
             logger.error(f'failed to connect to logger client error: {e}')
