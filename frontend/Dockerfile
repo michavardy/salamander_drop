@@ -51,8 +51,8 @@ RUN npm run build
 
 # for development only 
 #CMD ["/bin/bash"]
-# docker build -t frontend .
-# docker run -it --rm frontend sh
+#docker build -t frontend .
+#docker run -it --rm frontend sh
 #########################################
             ## Stage 2 ## serve
 #########################################
@@ -60,11 +60,14 @@ RUN npm run build
 # Stage 2: Serve the built application
 FROM nginx:alpine
 
-# Copy the Nginx configuration file to the appropriate location in the image
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the mime.types file to the Nginx configuration directory
+#COPY mime.types /etc/nginx/mime.types
 
 # Copy the built static files to the appropriate location in the image
 COPY --from=build /build /usr/share/nginx/html
+
+# Copy the Nginx configuration file to the appropriate location in the image
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80 so that the container can be accessed over HTTP
 EXPOSE 80
