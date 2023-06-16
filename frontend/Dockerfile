@@ -1,3 +1,7 @@
+#########################################
+            ## Stage 1 ## build
+#########################################
+
 # Use the official Node.js 14 image as the base image
 FROM node:14 AS build
 
@@ -42,5 +46,31 @@ RUN npm install
 # Expose port 3000 so that the container can be accessed over HTTP
 EXPOSE 3000
 
-# Start npm server
-CMD ["npm", "start"]
+# Build React Static
+RUN npm run build
+
+# for development only 
+#CMD ["/bin/bash"]
+#docker build -t frontend .
+#docker run -it --rm frontend sh
+#########################################
+            ## Stage 2 ## serve
+#########################################
+
+# Stage 2: Serve the built application
+FROM nginx:alpine
+
+# Copy the mime.types file to the Nginx configuration directory
+#COPY mime.types /etc/nginx/mime.types
+
+# Copy the built static files to the appropriate location in the image
+COPY --from=build /build /usr/share/nginx/html
+
+# Copy the Nginx configuration file to the appropriate location in the image
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80 so that the container can be accessed over HTTP
+EXPOSE 80
+
+# Start the nginx server
+CMD ["nginx", "-g", "daemon off;"]

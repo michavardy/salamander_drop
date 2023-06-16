@@ -6,7 +6,8 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
+      #- "3000:3000"
+      - "80:80"
     networks:
       - salamander
     volumes:
@@ -44,6 +45,7 @@ services:
     #  - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
       - ./data:/data/db/
+      - ./init.js:/docker-entrypoint-initdb.d/init.js  # Mount the script
     networks:
       - salamander
     #command: mongod
