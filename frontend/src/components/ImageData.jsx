@@ -2,7 +2,7 @@ import "../global.css";
 import { useContext, useEffect, useRef } from "react";
 import { ImageContext } from "./Upload";
 import ToolBar from "./ToolBar";
-import DateTimePicker from 'react-datetime-picker';
+
 
 const ImageData = (props) => {
   const {
