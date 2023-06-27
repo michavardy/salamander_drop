@@ -56,7 +56,7 @@
     margin:0;
     padding:0;
     background-color:var( --background-color);
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -132,7 +132,7 @@
     display:flex;
     flex-direction: column;
     height:90vh;
-    width:3vh;
+    width:10vh;
     justify-content: center;
     align-items: center;
   }
@@ -140,12 +140,12 @@
   .collapseButton{
     background-color: var(--primary-color);
     color:var(--text-color);
-    font: size 50px;
+    font-size: 20px;
     font-weight: bold;
-    border: 2px solid var(--border-color);
+    border: 3px solid var(--border-color);
     cursor: pointer;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    writing-mode: sideways-lr; /* set writing mode to display text vertically */
+    writing-mode: vertical-lr; /* set writing mode to display text vertically */
     text-orientation: mixed; /* allow both horizontal and vertical text */
     text-align: center; /* center align text */
     white-space: nowrap; /* prevent text from wrapping */
@@ -264,6 +264,12 @@
   }
   .icon:hover{
     background-color: grey;
+  }
+  .iconDescription{
+    padding:1px;
+    background-color: transparent;
+    color: white;
+    text-align: center;
   }
 
   /* ##################  imageDataForm ########################### */

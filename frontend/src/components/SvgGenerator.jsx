@@ -2,8 +2,30 @@ import Icons from '../images/icons.json'
 
 const SvgGenerator = (props) => {
 
+  const handleMouseEnter = () => {
+    // Show description on hover
+    const description = document.getElementById(`${props.path}-description`);
+    if (description) {
+      description.style.display = 'block';
+    }
+  };
+
+  const handleMouseLeave = () => {
+    // Hide description when not hovering
+    const description = document.getElementById(`${props.path}-description`);
+    if (description) {
+      description.style.display = 'none';
+    }
+  };
+
     return (
-      <div className='icon' onClick={props.callBack}>
+      <div className="icon-container">
+      <div 
+      className='icon' 
+      onClick={props.callBack}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={`${props.scale}mm`}
@@ -20,6 +42,13 @@ const SvgGenerator = (props) => {
               ></path>
             </g>
         </svg>
+        </div>
+        <div 
+        className="iconDescription" 
+        id={`${props.path}-description`} 
+        style={{ display: 'none' }}>
+        {props.description}
+      </div>
         </div>
         )
 }
