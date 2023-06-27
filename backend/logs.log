@@ -98,3 +98,53 @@
 2023-06-09 09:25:40,847 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
 2023-06-09 09:25:49,083 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://admin:pass@mongo:27017/mydatabase
 2023-06-09 09:25:49,083 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-24 18:08:32,447 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-24 18:08:32,448 - app.logger_setup - INFO - reduce_glare
+2023-06-24 18:09:46,990 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://admin:pass@mongo:27017/imageDatabase
+2023-06-24 18:09:46,990 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-24 18:09:47,039 - app.logger_setup - DEBUG - logger collection loaded: salamander_drop
+2023-06-24 18:09:47,040 - app.logger_setup - INFO - insert data entry: {'imageSetName': 'micha_test', 'Contributer': 'micha'}
+2023-06-24 18:09:47,205 - app.logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7f6c0fbece40>
+2023-06-24 18:18:10,193 - app.logger_setup - DEBUG - successfully connected to logger client at mongodb://admin:pass@mongo:27017/imageDatabase
+2023-06-24 18:18:10,193 - app.logger_setup - DEBUG - logger database loaded: imageDatabase
+2023-06-24 18:18:10,231 - app.logger_setup - DEBUG - logger collection loaded: salamander_drop
+2023-06-24 18:18:10,231 - app.logger_setup - INFO - insert data entry: {'imageSetName': 'Test', 'Contributer': 'Micha'}
+2023-06-24 18:18:10,255 - app.logger_setup - DEBUG - data entry insert succeeded, insert id: <pymongo.results.InsertOneResult object at 0x7f6c0ef8cf40>
+2023-06-26 16:01:51,370 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-26 16:01:51,371 - app.logger_setup - INFO - reduce_glare
+2023-06-26 16:01:52,159 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:01:52,159 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:01:55,171 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:01:55,171 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:01:57,015 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:01:57,015 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:01:59,624 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:01:59,625 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:00,194 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:00,194 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:01,520 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:01,520 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:01,848 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:01,849 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:03,374 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:03,374 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:03,887 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:03,887 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:04,129 - app.logger_setup - INFO - show actions: ['reduce_glare']
+2023-06-26 16:02:04,130 - app.logger_setup - INFO - reduce_glare
+2023-06-26 16:02:05,356 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:05,357 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:07,200 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:07,201 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:10,785 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:10,786 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:11,553 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:11,554 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:13,651 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:13,651 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:14,678 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:14,678 - app.logger_setup - INFO - rotate_image
+2023-06-26 16:02:19,387 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 16:02:19,387 - app.logger_setup - INFO - rotate_image
+2023-06-26 17:58:24,445 - app.logger_setup - INFO - show actions: ['rotate_image']
+2023-06-26 17:58:24,446 - app.logger_setup - INFO - rotate_image
