@@ -151,6 +151,7 @@
     white-space: nowrap; /* prevent text from wrapping */
     padding: 20px 0; /* remove padding */
     line-height: 1; /* set line height to 1 to prevent extra space */
+    transform: rotate(180deg);
   }
 
   .collapseButton:hover {
@@ -316,10 +317,11 @@
 }
 
 .imageDataFormRow{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+
   gap: 10px;
   padding:10px;
+  display: flex;
+  align-items:center;
 }
 
 .imageDataFormTitle{
@@ -334,12 +336,18 @@
   font-size: 18px;
 }
 
+.imageDataFormLabelUnits{
+  font-size: small;
+  color:var(--text-color);
+}
+
 .imageDataFormInput {
   grid-column: 2 / 3;
   padding: 5px;
   border-radius: 5px;
   border: none;
   max-width: 90%;
+  flex:1;
 }
 
   /* ##################  imageTimeStamp ########################### */

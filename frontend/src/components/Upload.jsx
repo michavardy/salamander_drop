@@ -78,10 +78,10 @@ const CollapseButton = () => {
   return (
     <div className="collapseButtonContainer">
       <button className="collapseButton" onClick={CollapseImageData}>
-        Image Data
+        Edit
       </button>
       <button className="collapseButton" onClick={CollapseImageSetData}>
-        Image Set Data
+        Submit
       </button>
     </div>
   );
