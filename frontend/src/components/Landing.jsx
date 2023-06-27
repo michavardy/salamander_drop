@@ -7,8 +7,24 @@ const Landing = (props) => {
     const [isDragging, setIsDragging] = useState(false)
 
 
+
     function handleFileChange(event){
-        props.setFiles(Array.from(event.target.files))
+        const selectedFiles = Array.from(event.target.files);
+        const imageFiles = []
+        for (let i = 0; i < selectedFiles.length; i++) {
+            const file = selectedFiles[i];
+            if (file.type.startsWith('image/')) {
+              imageFiles.push(file);
+            }
+          }
+        if (imageFiles.length > 0) {
+            props.setFiles(imageFiles);
+          } else {
+            // Show warning message and navigate back to the first page
+            alert('No image files were selected!');
+            // Perform any necessary navigation back to the first page here
+          }
+
     }
     function handleDragOver(event){
         event.preventDefault();
