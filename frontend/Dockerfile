@@ -69,8 +69,8 @@ COPY --from=build /build /usr/share/nginx/html
 # Copy the Nginx configuration file to the appropriate location in the image
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 80 so that the container can be accessed over HTTP
-EXPOSE 80
+# Expose port 3000 so that the container can be accessed over HTTP
+EXPOSE 3000
 
 # Start the nginx server
 CMD ["nginx", "-g", "daemon off;"]

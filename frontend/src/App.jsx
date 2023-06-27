@@ -4,19 +4,11 @@ import Landing from "./components/Landing";
 import "./global.css";
 
 const App = () => {
-  const checkIpAdress = () => {
-    // Check if inside or outside the network
-    if (window.location.hostname === 'localhost' || window.location.hostname === '192.168.0.103') {
-      setIpAdress('localhost'); // Internal IP address
-    } else {
-      setIpAdress('213.57.120.114'); // External IP address
-    }
-  };
 
   const [files, setFiles] = useState(null);
-  const [ipAdress, setIpAdress] = useState('192.168.0.103');
+  const [ipAdress, setIpAdress] = useState(window.location.hostname);
   useEffect(() => {
-    checkIpAdress(), []
+    setIpAdress(window.location.hostname), []
   })
   return (
     <div className="appContainer">
