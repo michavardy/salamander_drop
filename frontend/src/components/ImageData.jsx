@@ -374,7 +374,7 @@ const ImageData = (props) => {
             <label className="imageDataFormLabel" htmlFor="gps">
               GPS:
             </label>
-            <div className="imageDataFormLabelUnits"></div>
+            <div className="imageDataFormLabelUnits">lat,long</div>
             <input
               className="imageDataFormInput"
               type="text"
@@ -385,8 +385,18 @@ const ImageData = (props) => {
                   ? `${imageData[selectedImageIndex].latGPS.toFixed(
                       3
                     )} , ${imageData[selectedImageIndex].longGPS.toFixed(3)}`
-                  : "not available"
+                  : "0,0"
               }
+              onChange={(e) => {
+                const latGPS = imageData[selectedImageIndex].latGPS
+                const longGPS = imageData[selectedImageIndex].longGPS
+                const newLatGPS = parseFloat(e.target.value.split(",")[0]);
+                const newLongGPS = parseFloat(e.target.value.split(",")[1]);
+                const imageObj = imageData[selectedImageIndex];
+                const updatedImageObj = { ...imageObj, latGPS: newLatGPS, longGPS: newLongGPS };
+                imageData[selectedImageIndex] = updatedImageObj;
+                setImageData([...imageData]);
+              }}
             />
           </div>
           <div className="imageDataFormRow">
@@ -509,26 +519,6 @@ const ImageData = (props) => {
           )
           :null
         }
-      </div>
-      <div className="imageDataTimeStamp">
-        <div style={{ fontSize: "50px", color: "var(--text-color)" }}>
-          {imageData[selectedImageIndex].city}
-        </div>
-        <div
-          style={{ fontSize: "20px", color: "var(--text-color)" }}
-        >{`${imageData[selectedImageIndex].district} - ${imageData[selectedImageIndex].country}`}</div>
-        {imageData[selectedImageIndex].metadata ? (
-          <>
-            <div style={{ fontSize: "70px", color: "var(--text-color)" }}>
-              {imageData[selectedImageIndex].metadata.DateTime.split(" ")[1]}
-            </div>
-            <div style={{ fontSize: "30px", color: "var(--text-color)" }}>
-              {imageData[selectedImageIndex].metadata.DateTime.split(" ")[0]}
-            </div>
-          </>
-        ) : (
-          "not available"
-        )}
       </div>
     </div>
   ) : (

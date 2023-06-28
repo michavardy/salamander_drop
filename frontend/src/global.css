@@ -263,9 +263,7 @@
     transform: scale(0.9);
 
   }
-  .icon:hover{
-    background-color: grey;
-  }
+
   .iconDescription{
     padding:1px;
     background-color: transparent;

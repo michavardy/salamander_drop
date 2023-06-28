@@ -41,17 +41,16 @@ const CollapseButton = () => {
     const imageDataTimeStamp = document.querySelector(".imageDataTimeStamp");
     const imageSetDataForm = document.querySelector(".imageSetDataForm");
 
+
     if (pane === "imageData") {
       if (
         imageDataForm &&
         imageDataImage &&
-        imageDataImageManipulationButtons &&
-        imageDataTimeStamp
+        imageDataImageManipulationButtons 
       ) {
         imageDataForm.style.display = "flex";
         imageDataImage.style.display = "flex";
         imageDataImageManipulationButtons.style.display = "flex";
-        imageDataTimeStamp.style.display = "flex";
       }
 
       if (imageSetDataForm) {
@@ -61,19 +60,19 @@ const CollapseButton = () => {
       if (
         imageDataForm &&
         imageDataImage &&
-        imageDataImageManipulationButtons &&
-        imageDataTimeStamp
+        imageDataImageManipulationButtons
+
       ) {
         imageDataForm.style.display = "none";
         imageDataImage.style.display = "none";
         imageDataImageManipulationButtons.style.display = "none";
-        imageDataTimeStamp.style.display = "none";
       }
       const imageSetDataForm = document.querySelector(".imageSetDataForm");
       if (imageSetDataForm) {
         imageSetDataForm.style.display = "flex";
       }
     }
+
   }, [pane]);
   return (
     <div className="collapseButtonContainer">

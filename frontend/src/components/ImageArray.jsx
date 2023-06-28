@@ -202,7 +202,7 @@ const ImageArray = (props) => {
 
           };
         });
-      setImageData(resolvedImageObj);
+
       return resolvedImageObj;
     });
     setProgress(0)
@@ -231,12 +231,13 @@ const ImageArray = (props) => {
         } catch {
           return {
             ...obj,
-            latGPS: null,
-            longGPS: null,
+            latGPS: 0.0,
+            longGPS: 0.0,
           };
         }
       })
     );
+    
     setProgress(0)
     setStageMessage('extracting image Geo Location')
     const imageDataGeo = await Promise.all(
@@ -262,6 +263,7 @@ const ImageArray = (props) => {
         }
       })
     );
+    setImageData(imageDataGeo);
     setLoading(false);
   }
 
