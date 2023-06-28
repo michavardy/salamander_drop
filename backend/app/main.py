@@ -48,6 +48,7 @@ class ImageData(BaseModel):
 class DataSet(BaseModel):
     imageData: Any
     imageSetData: Any
+    imageAttributes: Any
 
 @app.get("/")
 async def sayHello():
@@ -71,7 +72,7 @@ async def rotate_image(img: ImageData):
 @app.post("/submit")
 async def submit_data_set(dataSet: DataSet):
     mongo = Mongo(db_name, collection_name)
-    mongo.add_dataset(dataSet.imageData, dataSet.imageSetData)
+    mongo.add_dataset(dataSet.imageData, dataSet.imageSetData, dataSet.imageAttributes)
     return {'message':"recieved"}
 
 

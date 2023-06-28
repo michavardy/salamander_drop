@@ -1,5 +1,5 @@
 import "../global.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { ImageContext } from "./Upload";
 import EXIF from "exif-js";
 import GoogleMapReact from "google-map-react";
@@ -7,11 +7,12 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const Thumbnail = ({ index, setSelectedImageIndex, image, name, setShowComment }) => {
+const Thumbnail = ({ index, setSelectedImageIndex, image, name, setShowComment}) => {
   return (
     <div className="thumbNailContainer" id={`thumbNailContainer_${index}`}>
       <div
         className="thumbnailCard"
+        id={`thumbnailCard_${index}`}
         onClick={() => {
           setSelectedImageIndex(Number(index));
           setShowComment(false)
@@ -21,6 +22,7 @@ const Thumbnail = ({ index, setSelectedImageIndex, image, name, setShowComment }
           src={image}
           className="thumbnail"
           style={{ width: "200px", height: "200px" }}
+          id={`image_${index}`}
         />
         <h3 className="thumbnailName">{name}</h3>
       </div>
@@ -174,22 +176,6 @@ const ImageArray = (props) => {
     return json;
   }
 
-  async function handleRemoveBackground(image, name) {
-    const response = await fetch(`http://${ipAdress}:8000/remove_background`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        image_name: name,
-        image_data: image,
-        action: "remove_background",
-      }),
-    });
-    const json = await response.json();
-    setResponseCount((prevCount) => prevCount + 1);
-    return json.image;
-  }
 
   async function extractImages() {
     const imageObj = await Promise.all(
@@ -212,6 +198,8 @@ const ImageArray = (props) => {
             Comment:"",
             Rejected: false,
             metadata: metadata,
+            action: [],
+
           };
         });
       setImageData(resolvedImageObj);
@@ -274,27 +262,6 @@ const ImageArray = (props) => {
         }
       })
     );
-    //setProgress(0)
-    //setStageMessage('removing background')
-    //const removeBackground = await Promise.all(
-    //  imageDataGeo.map(async (obj, index, arr) => {
-    //    setProgress(Math.round(100 * index / arr.length))
-    //    try {
-    //      const rbg = await handleRemoveBackground(obj.image, obj.name);
-    //      return {
-    //        ...obj,
-    //        image: rbg,
-    //      };
-    //    } catch (error) {
-    //      console.log("error removing background");
-    //      console.error(error);
-    //      return {
-    //        ...obj,
-    //      };
-    //    }
-    //  })
-    //);
-    //setImageData(removeBackground);
     setLoading(false);
   }
 

@@ -1,10 +1,12 @@
 import "../global.css";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ImageContext } from "./Upload";
 import ToolBar from "./ToolBar";
 
 
 const ImageData = (props) => {
+  const [imageAttributes,setImageAttributes] = useState([])
+  
   const {
     imageDataRef,
     commentRef,
@@ -19,8 +21,25 @@ const ImageData = (props) => {
     setImageSetData,
     setShowComment,
     showComment,
-    ipAdress
+    ipAdress,
   } = useContext(ImageContext);
+
+  useEffect(()=>{
+    if(imageData !==null){
+      const initImageAttributes = imageData.map((img)=>{
+        return {
+        rotationAngle:0,
+        brightness:1,
+        scale:1,
+        action:[]
+        }
+        })
+        setImageAttributes(initImageAttributes)
+    }
+
+  },[imageData, ImageContext])
+
+
   function toDateLocal(Date){
     const DateArray = Date.split(":");
     const Year = DateArray[0];
@@ -47,6 +66,89 @@ const ImageData = (props) => {
     return `${Year}:${Month}:${Day} ${Hour}:${Minute}`;
   }
 
+  function handleReduceGlareClient(){
+    console.log('reduce glare')
+    // set selected attributes, and get image element
+    const selectedImageAttributes = imageAttributes[selectedImageIndex]
+    console.log(selectedImageAttributes)
+    const image_element = document.getElementById(`image_${selectedImageIndex}`)
+    const display_image_element = document.getElementById(`displayimage_${selectedImageIndex}`)
+    let newBrightness = 1
+    let newAction = []
+    // if i find the image element, add brightness , add action, and reduce brightness by css
+    if (image_element && display_image_element){
+      newBrightness = selectedImageAttributes.brightness - 0.1;  // reduce brightness by 10% 
+      newAction = selectedImageAttributes.action 
+      newAction.push(`reduce_brightness:${newBrightness}`)
+      image_element.style.filter = `brightness(${newBrightness})`;
+      display_image_element.style.filter = `brightness(${newBrightness})`;
+    }
+    // update the imageattributes hook with updated rotation angle and action
+    const updatedImageAttributes = [...imageAttributes];
+    updatedImageAttributes[selectedImageIndex] = {
+      ... selectedImageAttributes,
+      brightness: newBrightness,
+      action: newAction
+    }
+    setImageAttributes(updatedImageAttributes)
+  }
+  
+  function handleResizeClient(){
+    console.log('resize image')
+    
+    // set selected attributes, and get image element
+    const selectedImageAttributes = imageAttributes[selectedImageIndex]
+    console.log(selectedImageAttributes)
+    const image_element = document.getElementById(`image_${selectedImageIndex}`)
+    const display_image_element = document.getElementById(`displayimage_${selectedImageIndex}`)
+    let newScale = 1
+    let newAction = []
+
+    // if i find the image element, new scale, add action, and scale css by new scale
+    if (image_element && display_image_element){
+      newScale = selectedImageAttributes.scale + 0.1;  // Add 10% to the current scale
+      newAction = selectedImageAttributes.action 
+      newAction.push(`scale_image:${newScale}`)
+      image_element.style.transform = `scale(${newScale})`;
+      display_image_element.style.transform = `scale(${newScale})`;
+    }
+    // update the imageattributes hook with updated rotation angle and action
+    const updatedImageAttributes = [...imageAttributes];
+    updatedImageAttributes[selectedImageIndex] = {
+      ... selectedImageAttributes,
+      scale: newScale,
+      action: newAction
+    }
+    setImageAttributes(updatedImageAttributes)
+  }
+
+  function handleRotateClient(){
+    console.log('rotate image')
+    
+    // set selected attributes, and get image element
+    const selectedImageAttributes = imageAttributes[selectedImageIndex]
+    const image_element = document.getElementById(`image_${selectedImageIndex}`)
+    const display_image_element = document.getElementById(`displayimage_${selectedImageIndex}`)
+    let newRotationAngle = 0
+    let newAction = []
+
+    // if i find the image element, add new rotation angle, add action, and rotate css by rotation angle
+    if (image_element && display_image_element){
+      newRotationAngle = selectedImageAttributes.rotationAngle + 90;  // Add 90 to the current rotation angle
+      newAction = selectedImageAttributes.action 
+      newAction.push(`rotate_image:${newRotationAngle}`)
+      image_element.style.transform = `rotate(${newRotationAngle}deg)`;
+      display_image_element.style.transform = `rotate(${newRotationAngle}deg)`;
+    }
+    // update the imageattributes hook with updated rotation angle and action
+    const updatedImageAttributes = [...imageAttributes];
+    updatedImageAttributes[selectedImageIndex] = {
+      ... selectedImageAttributes,
+      rotationAngle: newRotationAngle,
+      action: newAction
+    }
+    setImageAttributes(updatedImageAttributes)
+  }
   function handleRotate() {
     fetch(`http://${ipAdress}:8000/rotate_image`, {
       method: "POST",
@@ -156,6 +258,7 @@ const ImageData = (props) => {
       body: JSON.stringify({
         imageData: imageData,
         imageSetData: imageSetData,
+        imageAttributes: imageAttributes
       }),
     })
     .then((response) => {
@@ -229,7 +332,7 @@ const ImageData = (props) => {
               }}
             />
           </div>
-          <div className="imageDataFormRow">
+          <div className="imageDataFormRowSubmission">
             <button 
               className="imageDataFormButton"
               onClick={handleSubmit}>Submit</button>
@@ -242,6 +345,7 @@ const ImageData = (props) => {
               Cancle
             </button>
           </div>
+          <div className="imageDataFormLabel">Submit could take up to a few minutes</div>
         </div>
       </div>
       <div className="imageDataForm">
@@ -383,14 +487,16 @@ const ImageData = (props) => {
             src={imageData[Number(selectedImageIndex)].image}
             className="thumbnail"
             style={{ width: "200px", height: "200px" }}
+            id={`displayimage_${selectedImageIndex}`}
           />
         </div>
         <div className="imageDataImageManipulationButtons">
           <ToolBar
-            handleReduceGlare={handleReduceGlare}
+            handleReduceGlare={handleReduceGlareClient}
             handleRejected={handleRejected}
-            handleRotate={handleRotate}
+            handleRotate={handleRotateClient}
             handleComment={handleComment}
+            handleResize={handleResizeClient}
           />
         </div>
         {

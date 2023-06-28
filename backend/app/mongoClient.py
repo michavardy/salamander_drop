@@ -61,10 +61,11 @@ class Mongo:
         logger.debug(f'logger collection loaded: {self.collection_name}')
     
     @attach
-    def add_dataset(self, imageData: dict, imageSetData: dict):
+    def add_dataset(self, imageData: dict, imageSetData: dict, imageAttributes: dict):
         # compile data entry
         data_entry = {
             "imageData":imageData,
+            "imageAttributes":imageAttributes,
             "imageSetData":imageSetData,
             "dateTime":datetime.now()
             }

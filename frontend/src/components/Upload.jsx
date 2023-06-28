@@ -107,6 +107,8 @@ const [imageSetData, setImageSetData] = useState({
   imageSetName: "",
   Contributer: "",
 });
+const [imageAttributes, setImageAttibutes] = useState([])
+
 
 const ContextValue = {
   imageDataCollapsed: imageDataCollapsed,
@@ -133,7 +135,9 @@ const ContextValue = {
   setImageSetData: setImageSetData,
   commentRef: commentRef,
   showComment: showComment,
-  setShowComment: setShowComment
+  setShowComment: setShowComment,
+  imageAttributes: imageAttributes, 
+  setImageAttibutes, setImageAttibutes
 };
 
 console.log("init context");

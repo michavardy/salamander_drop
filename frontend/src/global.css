@@ -324,6 +324,15 @@
   align-items:center;
 }
 
+.imageDataFormRowSubmission{
+
+  gap: 10px;
+  padding:10px;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
 .imageDataFormTitle{
   color:var(--text-color);
   font-size: 30px;

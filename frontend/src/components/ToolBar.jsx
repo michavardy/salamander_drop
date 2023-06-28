@@ -23,7 +23,7 @@ const ToolBar = (props) => {
         path={"Resize"}
         scale={10}
         fill={"#f2f2f2"}
-        callBack={() => {}}
+        callBack={props.handleResize}
         description="Resize Image"
       />
       <SvgGenerator
