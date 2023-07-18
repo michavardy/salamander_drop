@@ -400,65 +400,29 @@ const ImageData = (props) => {
             />
           </div>
           <div className="imageDataFormRow">
-            <label className="imageDataFormLabel" htmlFor="date">
-              Date:
+            <label className="imageDataFormLabel" htmlFor="datetime">
+              Date-Time:
             </label>
-            <div className="imageDataFormLabelUnits">(YYYY-MM-DD)</div>
+            <div className="imageDataFormLabelUnits">(YYYY-MM-DD HH:MM)</div>
             <input
               className="imageDataFormInput"
-              type="date-local"
-              id="date"
-              name="date"
+              type="text"
+              id="datetime"
+              name="datetime"
               value={
                 imageData[selectedImageIndex].metadata
-                  ? toDateLocal(
-                    imageData[selectedImageIndex].metadata.DateTime.split(" ")[0]
-                    )
+                  ? imageData[selectedImageIndex].metadata.DateTime
                   : "not available"
               }
               onChange={(e) => {
+                console.log(e.target.value)
                 const updatedImageData = [...imageData];
-                const newDate = e.target.value;
-                const Time = imageData[selectedImageIndex].metadata.DateTime.split(" ")[1];
+                const newDateTime = e.target.value;
                 updatedImageData[selectedImageIndex] = {
                   ...updatedImageData[selectedImageIndex],
                   metadata: {
-                    ...updatedImageData[selectedImageIndex].metadata,
-                    DateTime: toDateTimeLocal(newDate, Time),
-                  },
-                };
-                setImageData(updatedImageData);
-              }}
-            />
-          </div>
-          <div className="imageDataFormRow">
-            <label className="imageDataFormLabel" htmlFor="time">
-              Time:
-            </label>
-            <div className="imageDataFormLabelUnits">(HH:MM)</div>
-            <input
-              className="imageDataFormInput"
-              type="time-local"
-              id="time"
-              name="time"
-              value={
-                imageData[selectedImageIndex].metadata
-                  ? toTimeLocal(
-                      imageData[selectedImageIndex].metadata.DateTime.split(" ")[1]
-                    )
-                  : "not available"
-              }
-              onChange={(e) => {
-                const updatedImageData = [...imageData];
-                const updatedSelectedImage = updatedImageData[selectedImageIndex];
-                const newTime = e.target.value;
-                const Date = imageData[selectedImageIndex].metadata.DateTime.split(" ")[0];
-
-                updatedImageData[selectedImageIndex] = {
-                  ...updatedImageData[selectedImageIndex],
-                  metadata: {
-                    ...updatedImageData[selectedImageIndex].metadata,
-                    DateTime: toDateTimeLocal(Date,newTime),
+                  ...updatedImageData[selectedImageIndex].metadata,
+                  DateTime: newDateTime,
                   },
                 };
                 setImageData(updatedImageData);
