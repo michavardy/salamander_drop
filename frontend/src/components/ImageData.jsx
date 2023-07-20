@@ -134,7 +134,7 @@ const ImageData = (props) => {
 
     // if i find the image element, add new rotation angle, add action, and rotate css by rotation angle
     if (image_element && display_image_element){
-      newRotationAngle = selectedImageAttributes.rotationAngle + 90;  // Add 90 to the current rotation angle
+      newRotationAngle = selectedImageAttributes.rotationAngle + 10;  // Add 90 to the current rotation angle
       newAction = selectedImageAttributes.action 
       newAction.push(`rotate_image:${newRotationAngle}`)
       image_element.style.transform = `rotate(${newRotationAngle}deg)`;
