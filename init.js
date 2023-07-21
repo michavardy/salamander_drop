@@ -1,3 +1,7 @@
+// Enable authentication
+db = db.getSiblingDB('admin');
+db.runCommand({ setParameter: 1, authentication: true });
+
 // Create admin user
 db = db.getSiblingDB('admin');
 db.createUser({
